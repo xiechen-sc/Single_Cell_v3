@@ -33,5 +33,5 @@ def sql_scelect(project_id):
             connection.close()
     return result
 if __name__ == '__main__':
-    sql_scelect('proj1234')
-    print(123)
+    ret = sql_scelect('proj11234')
+    print(ret)
