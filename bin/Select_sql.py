@@ -1,5 +1,5 @@
 #!/gpfs/oe-scrna/zhengfuxing/conda/scAuto/bin/python
-
+# 用于获取远程数据库的数据包
 import pymysql
 def sql_scelect(project_id):
     # 数据库连接配置
