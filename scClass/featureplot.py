@@ -15,8 +15,7 @@ def mkobj(father,yaml_data):
             reduct = self.reduct
             f = open(out_script,'w')
             f.write(f"""set -e
-module purge && module load OESingleCell/3.0.d
-              
+module purge && module load OESingleCell/3.0.d            
 Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
   -i {seurat}  \\
   -f h5seurat \\
@@ -38,6 +37,4 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
     
     sc_obj = featureplot(**yaml_data)
         
-
-
     return sc_obj  # 直接返回实例化的对象

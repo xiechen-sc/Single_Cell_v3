@@ -55,7 +55,6 @@ module_analysis = yaml_data['run']
 if module_analysis == 'featureplot':
     from scClass.featureplot import mkobj
     sc_obj = mkobj(father=ProjectInfo,yaml_data=yaml_data)
-    print(sc_obj/)
     sc_obj.get_script()
 
 
