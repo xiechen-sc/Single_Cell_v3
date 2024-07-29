@@ -3,7 +3,7 @@ def get_featureplot(config_out):
     # 默认变量
     seurat = 'seurat.h5seurat'
     out = './featureplot_vlnplot'
-    cpu = 10
+    cpu = 2
     assay = 'RNA'
     genelist = 'genelist.txt'
     groupby = 'clusters'
@@ -17,15 +17,17 @@ def get_featureplot(config_out):
     config_out_file = config_out + '/config.yaml'
     f = open(config_out_file, 'w')
 
-    f.write(f"""parameters:
-    input_seurat: {seurat}
-    output: {out}
-    cpu : {cpu}
-    assay: {assay}
-    genelist: {genelist}
-    groupby: {groupby}
-    reduct: {reduct}
-    plot: {plot}
+    f.write(f"""run: featureplot  # 这个不要改！
+input_seurat: {seurat}
+plot: {plot}
+groupby: {groupby}
+reduct: {reduct}
+# 下方参数可选
+output: {out} 
+cpu : {cpu}
+assay: {assay}
+genelist: {genelist}
+    
     """)
     f.close()
 
