@@ -66,7 +66,7 @@ def get_modified_cell_type(config_out):
     Modified_col = 'clusters'
     reduct = 'umap'
     updata_bynewcelltype = 'False'
-    newseurat = 'newcelltype/seurat'
+    newseurat = 'newcelltype/seurat.h5seurat'
     type_name = 'new_celltype'
     species = 'mouse'
 
