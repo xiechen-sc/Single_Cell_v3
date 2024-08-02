@@ -1,5 +1,6 @@
-def mkobj(father,yaml_data):
-    class featureplot(father):
+from .base_class import BaseClass
+# featureplot
+class Featureplot(BaseClass):
         analysis_module = 'featureplot'
 
         def get_script(self):
@@ -34,7 +35,5 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
   --dodge F
 """)
             f.close()
-    
-    sc_obj = featureplot(**yaml_data)
-        
-    return sc_obj  # 直接返回实例化的对象
+            print(f"脚本 {out_script} 已生成")
+

@@ -1,3 +1,4 @@
-from .Select_sql import sql_scelect
-from .Delete_sql import delete
+from .Select_sql import *
+from .Delete_sql import *
 from .util import *
+from .Instantiation import *
