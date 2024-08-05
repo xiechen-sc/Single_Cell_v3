@@ -69,6 +69,13 @@ def get_modified_cell_type(config_out):
     newseurat = 'newcelltype/seurat.h5seurat'
     type_name = 'new_celltype'
     species = 'mouse'
+    # 根据数据库进行修改
+    project_info = database_retrieval(config_path=config_out)
+    if 'species' in project_info :
+        species = project_info['species'] # 更新物种信息
+        
+
+
 
     config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type) 
     with open(config_out_file,'w')as f:

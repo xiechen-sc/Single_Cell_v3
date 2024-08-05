@@ -1,5 +1,5 @@
 from .base_class import BaseClass
-from single_cell_auto.util import get_species_info,jinggao
+from single_cell_auto.util import *
 
 class Modified_cell_type(BaseClass):
     analysis_module = 'modified_cell_type'
@@ -40,6 +40,8 @@ class Modified_cell_type(BaseClass):
             print('细胞文件名后缀只能是 tsv 或 csv，请检查 config 文件中 Modified_file 参数！')
             exit(1)
         out_script = f'{self.outdir}/cmd_modified_cell_type.sh'
+        #### 物种信息保存至数据库
+        database_add(config_path=out_script,config_info={'species':species})  
         with open(out_script,"w") as f:
             f.write(f"""set -e
 module purge && module load OESingleCell/3.0.d

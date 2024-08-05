@@ -1,8 +1,22 @@
+import os
+import yaml
 puple = '\033[35m'
 reset = '\033[0m'
 cyan = '\033[36m'
 yellow = '\033[33m'
 red = '\033[31m'
+
+# 判断项目号
+def get_project_id(config_path):
+    import re
+    pattern = r"D.*OE.*\d+|HT\d+.*|ZO.*"
+    project_id = re.search(pattern,config_path)
+    if not project_id:
+        project_id = "No Match"
+    else:
+        project_id = project_id.group()
+        project_id = re.sub('/.*','',project_id)
+    return project_id
 # 交互信息
 def show_guide():  
     print(f"""{cyan}
@@ -23,7 +37,6 @@ def show_guide():
     
 # 读取 YAML 文件
 def read_yaml_file(file_path):
-    import yaml
     with open(file_path, 'r',encoding='utf-8') as file:
         yaml_data = yaml.safe_load(file)
     return yaml_data 
@@ -49,6 +62,68 @@ def get_species_info(species=None):
 def jinggao(str):
     info = f"{red}{str}{reset}"
     print(info)
+
+# 分布式数据库
+# 获取数据库创建地址
+def get_database_path(config_path,project_id):
+    if project_id == "No Match":
+        jinggao("获取project_id 变量时失败 无法创建或检索数据库，请手动填写 config ！！！")
+        database_path = 'None'
+        return 
+    else:
+        database_path = config_path.split(project_id)[0] + project_id + '/.project_info'
+        return database_path
+# 写入数据库文件
+def save_dict_to_yaml(data_base_file, project_info):
+        try:
+            with open(data_base_file, 'w') as file:
+                yaml.dump(project_info, file, default_flow_style=False, allow_unicode=True)
+        except PermissionError:
+            print(f"该项目的根目录下没有权限写入，请联系所有人开放写入权限！否则影响自动化工作！")
+
+# 查询 一般发生在 已有数据库的情况下 去快速获取数据
+def database_retrieval(config_path):
+    project_id = get_project_id(config_path)
+    data_base_file = get_database_path(config_path=config_path,project_id=project_id)
+    if os.path.exists(data_base_file):
+        project_info = read_yaml_file(data_base_file)
+        return project_info
+    else:
+        return {}
+
+# def get_project_info(var,key):
+#     try:
+#         if var == 'None':
+#             jinggao(f'请手动确认 config 中的 {key}')
+#             return
+#         value = var[key]
+#         return value
+#     except ValueError as ve:
+#         print(ve)
+#     except TypeError:
+#         print("The variable is not a dictionary.")
+#     except KeyError:
+#         print(f"The key '{key}' does not exist in the dictionary.")
+#     except Exception as e:
+#         print(f"An unexpected error occurred: {e}")
+    
+
+
+# 创建 workflow 之后执行 选择需要上传数据库的部分执行
+def database_add(config_path,config_info):  # 传入的 config_info 是一个字典  由模块开发者认为有必要添加进数据库的内容 会往其中添加 
+    project_id = get_project_id(config_path)
+    data_base_file = get_database_path(config_path=config_path,project_id=project_id)
+    if os.path.exists(data_base_file):  # 数据库存在
+        project_info = read_yaml_file(data_base_file)
+        project_info = project_info | config_info
+        
+    else: # 不存在数据库 
+        project_info = {}
+        project_info['project_id'] = project_id
+        project_info = project_info | config_info
+
+    save_dict_to_yaml(data_base_file=data_base_file, project_info=project_info)
+    
 
 
 

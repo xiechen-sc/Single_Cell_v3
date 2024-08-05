@@ -6,14 +6,8 @@ from single_cell_auto import *
 args = sys.argv[1:]
 config = args[0]
 config_path = os.path.dirname(os.path.abspath(config))  # 生成文件与 config 文件同目录
-# 参数
-pattern = r"D.*OE.*\d+|HT\d+.*|ZO.*"
-project_id = re.search(pattern,config_path)
-if not project_id:
-    project_id = "No Match"
-else:
-    project_id = project_id.group()
-    project_id = re.sub('/.*','',project_id)
+# 获取项目编号
+project_id = get_project_id(config_path)
 
 ### yaml 转化为类属性
 yaml_data = read_yaml_file(config)

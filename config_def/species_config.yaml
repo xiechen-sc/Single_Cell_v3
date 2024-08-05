@@ -12,6 +12,9 @@ human:
   KEGG: /data/database/GSEA_gmt/human/v2023/c2.cp.kegg.v2023.1.Hs.symbols.gmt
   GO_BP: /data/database/GSEA_gmt/human/v2023/c5.go.bp.v2023.1.Hs.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/h.all.v2023.1.Hs.symbols.gmt
+  singleR:
+    default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
+    pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
 
 
 mouse:
@@ -19,6 +22,9 @@ mouse:
   KEGG: /data/database/GSEA_gmt/mouse/gene_kegg.gmt
   GO_BP: /data/database/GSEA_gmt/mouse/v2023/m5.go.bp.v2023.1.Mm.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
+  singleR:
+    default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+
 
 
 rat:
