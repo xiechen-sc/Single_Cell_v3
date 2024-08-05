@@ -89,7 +89,7 @@ def database_retrieval(config_path):
         project_info = read_yaml_file(data_base_file)
         return project_info
     else:
-        return {}
+        return {} # 保证查询返回结果一定是字典
 
 # def get_project_info(var,key):
 #     try:
