@@ -91,21 +91,7 @@ def database_retrieval(config_path):
     else:
         return {} # 保证查询返回结果一定是字典
 
-# def get_project_info(var,key):
-#     try:
-#         if var == 'None':
-#             jinggao(f'请手动确认 config 中的 {key}')
-#             return
-#         value = var[key]
-#         return value
-#     except ValueError as ve:
-#         print(ve)
-#     except TypeError:
-#         print("The variable is not a dictionary.")
-#     except KeyError:
-#         print(f"The key '{key}' does not exist in the dictionary.")
-#     except Exception as e:
-#         print(f"An unexpected error occurred: {e}")
+
     
 
 
