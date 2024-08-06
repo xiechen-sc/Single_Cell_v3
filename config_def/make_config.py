@@ -53,7 +53,7 @@ run: featureplot  # 这个不要改！
     print(f'config.yaml 文件已生成至 {config_out_file}')
 
 # 亚群分析系列
-def get_sub_clusters():
+def get_sub_clusters(config_out):
     pass
 
 # 修改细胞类型
