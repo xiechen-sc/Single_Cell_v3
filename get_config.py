@@ -21,6 +21,8 @@ def main():
             get_featureplot(config_out=config_out)
         elif analysis_module == '1':
             get_modified_cell_type(config_out=config_out)
+        elif analysis_module == '3':
+            get_diff_enrich(config_out=config_out)
         else:
             print(f'{analysis_module} :error! No or to be developed')
 

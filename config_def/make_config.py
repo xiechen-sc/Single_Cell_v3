@@ -36,7 +36,8 @@ def get_featureplot(config_out):
     # 得到config.yaml
     config_out_file = mkdir(config_out,analysis_type)
     f = open(config_out_file, 'w')
-    f.write(f"""input_seurat: {seurat}  # 输入的 seurat 文件
+    f.write(f"""
+input_seurat: {seurat}  # 输入的 seurat 文件
 plot: {plot}  # 可视化方法，可选ridgeplot,vlnplot,dotplot,featureplot,boxplot
 groupby: {groupby} # 分组展示条件，可选clusters、group等
 # 下方参数可选
@@ -93,3 +94,42 @@ species: {species}  # 物种
 run: {analysis_type}  # 这个不要改
 """)
     print(f'config.yaml 文件已生成至 {config_out_file}')
+
+# 差异分析 富集分析
+def get_diff_enrich(config_out):
+    # 默认变量
+    seurat = "seurat.h5seurat"
+    cell_types = '["1",\'2\']'
+    sub_type = "clusters"
+    species = 'mouse'
+    treat = '["After","a"]'
+    control = '["Before" ,"b"]'
+    fc = 1.5
+    p = 0.05
+    vs_type = 'group'
+    top = 10
+    analysis_type = 'diff'
+    # 根据数据库进行修改
+    project_info = database_retrieval(config_path=config_out)
+    if 'species' in project_info :
+        species = project_info['species'] # 更新物种信息
+
+    config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type) 
+
+    # 写入
+    with open(config_out_file,'w')as f:
+        f.write(f"""
+seurat: {seurat} # 输入的 h5seurat 文件
+cell_types: {cell_types}  # 哪些clusters 需要做差异分析 列表中每个元素生成一个单独的脚本  如果是 ['all'] 则不提取细胞子集
+sub_type: {sub_type}  #  对于上方参数 从metadata中哪一列选择上方列表中的内容
+treat: {treat}  # 实验组 组名
+control: {control} # 对照组组名  上下一一对应
+fc: {fc}  # 差异大小 foldchange
+p: {p}  # pvalue 显著性
+vs_type: {vs_type}  # 对应上方的 treat control 决定了基于metadata中哪一列选择实验组与对照组
+species: {species} # 填写物种
+top: {top}  # top 绘制热图基因数
+run: {analysis_type}   # 这个不要改
+
+""")
+    

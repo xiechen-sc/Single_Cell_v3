@@ -1,14 +1,18 @@
 import os
 import yaml
+import re
 puple = '\033[35m'
 reset = '\033[0m'
 cyan = '\033[36m'
 yellow = '\033[33m'
 red = '\033[31m'
-
+# 处理特殊字符
+def cell_name_normalization(cell_name):
+    pattern = r'\s+|\/|\(|\)|\||\&|\^|\%|,'
+    new_name = re.sub(pattern, '_', cell_name)
+    return new_name
 # 判断项目号
 def get_project_id(config_path):
-    import re
     pattern = r"D.*OE.*\d+|HT\d+.*|ZO.*"
     project_id = re.search(pattern,config_path)
     if not project_id:
@@ -90,10 +94,6 @@ def database_retrieval(config_path):
         return project_info
     else:
         return {} # 保证查询返回结果一定是字典
-
-
-    
-
 
 # 创建 workflow 之后执行 选择需要上传数据库的部分执行
 def database_add(config_path,config_info):  # 传入的 config_info 是一个字典  由模块开发者认为有必要添加进数据库的内容 会往其中添加 
