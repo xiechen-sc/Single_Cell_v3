@@ -1,0 +1,12 @@
+
+seurat: seurat.h5seurat  # 输入用于降维的 seurat
+species: mouse # 物种
+reduct1: pca  # mnn harmony pca
+reduct2: umap # umap tsne
+batchid: batchid  # 去批次采用哪一列  部分老师要求使用 sampleid
+resolution: 0.4  # 分辨率 T 细胞设置为 0.6, 0.8
+col_name: new_celltype  # 根据哪一列选择细胞做亚群分析 如果填写 all 则用所有细胞重新做亚群分析 具体参考下一行
+cells: ["T_cells","all",["T_cells","NK"]]  # 哪些细胞类型需要做降维 如果需要将两种细胞放在一起降维 可以写成 [["T_cells","NK"],"B_cells"],这样表示将 "T_cells","NK" 两个合在一起降维
+singleR_rds: /data/database/celltype_refdata/logNorm_rds/immgen.rds  #  自动注释参考数据集
+assay: RNA # 有时候会用 SCT
+run: sub_clusters # 这个不要修改
