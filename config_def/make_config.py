@@ -14,7 +14,7 @@ def mkdir(config_out,analysis_type):
         print(f"Directory {puple}'{directory}'{reset} created.")
     else:
         print(f"Directory {puple}'{directory}'{reset} already exists.")
-    init_file = directory + '.' + analysis_type + "__"
+    init_file = directory + '/.' + analysis_type + "__"
     with open(init_file, "w") as file:
         pass
     return(directory + '/config.yaml')
