@@ -5,8 +5,11 @@
 #   KEGG:
 #   GO_BP:
 #   Hallmakr: 
+#   singleR:
+#     default:
+#     others:
 
-
+# 人
 human:
   anno: /data/database/cellranger-refdata/refdata-gex-GRCh38-2020-A/ 
   KEGG: /data/database/GSEA_gmt/human/v2023/c2.cp.kegg.v2023.1.Hs.symbols.gmt
@@ -16,7 +19,7 @@ human:
     default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
     pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
 
-
+# 小鼠
 mouse:
   anno: /data/database/cellranger-refdata/refdata-gex-mm10-2020-A/
   KEGG: /data/database/GSEA_gmt/mouse/gene_kegg.gmt
@@ -25,8 +28,7 @@ mouse:
   singleR:
     default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
 
-
-
+# 大鼠
 rat:
   anno: "/data/database/cellranger-refdata/refdata-mRatBN7/"
   KEGG: "/data/database/GSEA_gmt/rat/gene_kegg.gmt"
