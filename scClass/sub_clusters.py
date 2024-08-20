@@ -157,7 +157,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
             
         out_script = f'{self.outdir}/cmd_{self.analysis_module}.sh'
         #### 物种信息保存至数据库
-        database_add(config_path=out_script,config_info={'species':species}) 
+        database_add(config_path=out_script,config_info={'species':species,'tissue':tissue}) 
         
         # 处理 cell
         for j in cells:

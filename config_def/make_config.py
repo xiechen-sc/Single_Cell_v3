@@ -77,6 +77,8 @@ def get_sub_clusters(config_out):
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
         species = project_info['species'] # 更新物种信息
+    if 'tissue' in project_info:
+        tissue = project_info['tissue']
 
     config_out_file = mkdir(config_out,analysis_type)
     f = open(config_out_file, 'w')
