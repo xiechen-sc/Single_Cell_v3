@@ -70,6 +70,8 @@ def get_sub_clusters(config_out):
     singleR_rds = 'default'
     assay = 'RNA'
     rerun = 'T'
+    extraGene = 'None'
+    tissue = 'None'
     # 根据数据库进行修改
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
@@ -86,7 +88,9 @@ batchid: {batchid}  # 去批次采用哪一列  部分老师要求使用 samplei
 resolution: {resolution} # 分辨率 T 细胞设置为 0.6, 0.8
 col_name: {col_name}  # 根据哪一列选择细胞做亚群分析 如果填写 all 则用所有细胞重新做亚群分析 具体参考下一行
 cells: {cells}  # 哪些细胞类型需要做降维 如果需要将两种细胞放在一起降维 可以写成 [["T_cells","NK"],"B_cells"],这样表示将 "T_cells","NK" 两个合在一起降维 ，并对B细胞单独降维
+extraGene: {extraGene}  # 额外输入的 marker 基因可视化列表 genelist.txt 若为 None 则不进行核外的 marker 可视化
 # 下方内容选择性填写！！！
+tissue: {tissue} # brain(脑)、Intestinal(肠)、lung(肺)、gastric(胃癌)、tumour(肿瘤). 非必须
 singleR_rds: {singleR_rds}  #  自动注释参考数据集 如果需要手动指定 请使用绝对路径
 assay: {assay} # 有时候会用 SCT
 rerun: {rerun} # 默认重新寻找高边基因进行聚类

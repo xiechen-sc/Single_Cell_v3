@@ -3,11 +3,128 @@ from single_cell_auto.util import *
 class Sub_Clusters(BaseClass):
     analysis_module = 'sub_clusters'
 
-    def whitelist():  # 白名单相关
-        pass
+    def whitelist(self,cell_name,species,tissue,seurat_sub,reduct2,cell_name_out):  # 白名单相关
+        database = '/data/database/sc_subtype_refmarker/'
+        whitelist_file = database + 'whitelist.xls'
+        if cell_name == 'all':
+            print("既未指定细胞类型，又无法获取有效的细胞类型信息，不执行基因可视化。")
+            return 'None'
+        elif species not in ['human','mouse','rat']:
+            print("非常规物种不适用默认基因列表")
+            return 'None'
+        elif tissue not in  ['brain','Intestinal','lung','gastric','tumour']:
+            print("未提供有效组织类型信息，提供非组织类型marker基因可视化，若无请核查。")
+        if type(cell_name) == list:
+            all_celltype = [i for i in cell_name]
+            #cell_name_out = "_".join(cell_name)
+        else:
+            all_celltype = [cell_name]
+            #cell_name_out = cell_name
+        cell_name_out = cell_name_normalization(cell_name_out)
+        f = open(whitelist_file,'r')
+        lines = f.readlines()
+        f.close()
+        # 将白名单 转化为字典 如果匹配到值 则返回键！
+        col_num = len(lines[0].replace('\n','').split('\t'))
+        info = {i:lines[0].strip().split('\t')[i] for i in range(col_num)}
+        line_counts = 0
+        celltype = {}  
+        for line in lines:  # 将白名单 转化为字典 如果匹配到值 则返回键！
+            line = line.replace('\n','').split('\t')   
+            if line_counts == 0:
+                line_counts = 1
+                for j in line:
+                    celltype[j] = []
+            else:
+                for k in range(col_num):
+                    celltype[info[k]].append(line[k])
+
+        use_celltype = []  # celltype 包含的所有白名单细胞
+        
+        for j in all_celltype:
+            for k in celltype:
+                if j in celltype[k]:
+                    use_celltype.append(k)
+        
+        use_celltype = [(database + i) for i in use_celltype] # 将所有匹配到的目录保存
+
+        import os
+        use_celltype_list = []
+        for directory_path in use_celltype:
+            marker_file = os.listdir(directory_path)
+            marker_file = [os.path.join(directory_path, d) for d in marker_file]
+            for f in marker_file:
+                use_celltype_list.append(f)
+        
+
+        import re
+        if tissue == 'None':
+            tissue_pattern = r"reference_marker_\d+_[a-zA-Z]+\.xls$"
+            cmd1 = ""
+            for i in use_celltype_list:
+                if not bool(re.findall(tissue_pattern,mkfile)):
+                    cmd1 += f""""
+Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
+  -i {seurat_sub}  \\
+  -f h5seurat \\
+  -o sub_{cell_name}/featureplot_vlnplot \\
+  -j 10 \\
+  --assay RNA \\
+  --dataslot data \\
+  visualize \\
+  -x {mkfile} \\
+  -g clusters \\
+  --reduct {reduct2} \\
+  -m vlnplot,featureplot,dotplot \\
+  --vcolors customecol2 \\
+  --ccolors spectral \\
+  --pointsize 0 \\
+  --dodge F                    
+"""
+                    
+            return cmd1
+        else:
+            cmd1 = ""
+            for mkfile in use_celltype_list:
+                if bool(re.findall(tissue,mkfile)):
+                    cmd1 += f"""
+Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
+  -i {seurat_sub}  \\
+  -f h5seurat \\
+  -o sub_{cell_name_out}/featureplot_vlnplot \\
+  -j 10 \\
+  --assay RNA \\
+  --dataslot data \\
+  visualize \\
+  -x {mkfile} \\
+  -g clusters \\
+  --reduct {reduct2} \\
+  -m vlnplot,featureplot,dotplot \\
+  --vcolors customecol2 \\
+  --ccolors spectral \\
+  --pointsize 0 \\
+  --dodge F                    
+"""
+            return cmd1
+        
+
+
+            
+
+
+
+
+        
+
+        
+        
+
+
     def get_cell_type(cells):
         pass
     def get_script(self):
+        tissue = self.tissue
+        extraGene = self.extraGene
         seurat = self.seurat
         species = self.species
         reduct1 = self.reduct1
@@ -46,7 +163,7 @@ class Sub_Clusters(BaseClass):
                 singleR_rds = '# 请手动填写！！！'
                 jinggao(f'{species} 在数据库中不存在 脚本 {out_script} singleR 部分 请手动填写参考数据集rds 或删除不做！！')
             else:
-                anno = anno + 'annotation/gene_annotation.xls'
+                pass
         else:
             singleR_rds = self.singleR_rds
             
@@ -60,7 +177,9 @@ class Sub_Clusters(BaseClass):
                 str_list = [str(k) for k in j]
                 cell_name = "_".join(str_list)
                 cell_type = ",".join(["\\'" + k + "\\'" for k in str_list])
+                cell_name_raw = str_list
             elif type(j) == str:
+                cell_name_raw = str(j)
                 cell_name = str(j)
                 cell_type = "\\'" + str(j) + "\\'"
             else:
@@ -82,15 +201,17 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
 --assay {assay}  \\
 --dataslot counts,data,scale.data   \\
 --update F   \\
---prefix {prefix}
+--prefix {prefix} \\
 """
             if cell_name != 'all':
                 cmd += f'--predicate  "{col_name} %in% c({cell_type})"   \\\n'
-            cmd += f"bclust   \\\n--reduct1 {reduct1}  \\\n"
+            cmd += f"bclust   \\\n--reduct1 {reduct1}  \\"
             if reduct1 == 'mnn':
                 cmd += f"--batchid {batchid} \\\n--components 10  \\"
             elif reduct1 == "pca,harmony":
                 cmd += f"--batchid {batchid} \\\n-t 20 \\\n-y 30 \\"
+            elif reduct1 == 'pca':
+                pass
             else:
                 jinggao("reduct type error,only pca mnn harmony!")
                 exit()
@@ -102,8 +223,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
 --pointsize  0.5  \\
 --palette customecol2
 
-"""
-            
+"""           
             # vis by clusters
             cmd += f"""
 # vis by clusters
@@ -221,8 +341,35 @@ celltyping \\
 --reduct {reduct2} \\
 --species {species}
 """
-
+            # genelist vis marker 
+            if extraGene != 'None':
+                cmd += f"""
+Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
+  -i {seurat_sub}  \\
+  -f h5seurat \\
+  -o sub_{cell_name}/featureplot_vlnplot \\
+  -j 10 \\
+  --assay RNA \\
+  --dataslot data \\
+  visualize \\
+  -x {extraGene} \\
+  -g clusters \\
+  --reduct {reduct2} \\
+  -m vlnplot,featureplot,dotplot \\
+  --vcolors customecol2 \\
+  --ccolors spectral \\
+  --pointsize 0 \\
+  --dodge F
+"""
+            else:
+                cmd1 = self.whitelist(cell_name=cell_name_raw,species=species,tissue=tissue,seurat_sub=seurat_sub,reduct2=reduct2,cell_name_out=cell_name)
+                if cmd1 != 'None':
+                    cmd += cmd1
+                
             with open(out_script,"w") as f:
                 f.write(cmd)
             print(f"脚本 {out_script} 已生成") 
             
+            
+if __name__ == '__main__':
+    pass
