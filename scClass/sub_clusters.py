@@ -107,22 +107,10 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
 """
             return cmd1
         
-
-
-            
-
-
-
-
-        
-
-        
-        
-
-
     def get_cell_type(cells):
         pass
     def get_script(self):
+        celltyping = self.celltyping
         tissue = self.tissue
         extraGene = self.extraGene
         seurat = self.seurat
@@ -322,7 +310,8 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool annotation \\
 --anno {anno}  # 根据物种修改
 """
             # singleR anno
-            cmd += f"""
+            if bool(celltyping):
+                cmd += f"""
 Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
 -i {seurat_sub}  \\
 -f h5seurat \\
