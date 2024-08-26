@@ -13,7 +13,7 @@ def cell_name_normalization(cell_name):
     return new_name
 # 判断项目号
 def get_project_id(config_path):
-    pattern = r"D.*OE.*\d+|HT\d+.*|ZO.*"
+    pattern = r"D.*OE.*\d+|HT\d+.*|ZO.*|DZQD.*"
     project_id = re.search(pattern,config_path)
     if not project_id:
         project_id = "No Match"
@@ -33,6 +33,7 @@ def show_guide():
         2.亚群分析
         3.差异分析
         4.marker基因绘图
+        5.singleR 注释细胞类型
         {reset}
         """
             )

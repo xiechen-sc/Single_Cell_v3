@@ -1,5 +1,6 @@
 from .base_class import BaseClass
 from single_cell_auto.util import *
+from single_cell_auto.cmd_module import *
 class Sub_Clusters(BaseClass):
     analysis_module = 'sub_clusters'
 
@@ -16,10 +17,10 @@ class Sub_Clusters(BaseClass):
             print("未提供有效组织类型信息，提供非组织类型marker基因可视化，若无请核查。")
         if type(cell_name) == list:
             all_celltype = [i for i in cell_name]
-            #cell_name_out = "_".join(cell_name)
+            cell_name_out = "_".join(cell_name)
         else:
             all_celltype = [cell_name]
-            #cell_name_out = cell_name
+            cell_name_out = cell_name
         cell_name_out = cell_name_normalization(cell_name_out)
         f = open(whitelist_file,'r')
         lines = f.readlines()
@@ -61,13 +62,14 @@ class Sub_Clusters(BaseClass):
         if tissue == 'None':
             tissue_pattern = r"reference_marker_\d+_[a-zA-Z]+\.xls$"
             cmd1 = ""
-            for i in use_celltype_list:
+            for mkfile in use_celltype_list:
                 if not bool(re.findall(tissue_pattern,mkfile)):
-                    cmd1 += f""""
+                    outcellname = "_".join(cell_name)
+                    cmd1 += f"""
 Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
   -i {seurat_sub}  \\
   -f h5seurat \\
-  -o sub_{cell_name}/featureplot_vlnplot \\
+  -o sub_{cell_name_out}/featureplot_vlnplot \\
   -j 10 \\
   --assay RNA \\
   --dataslot data \\
@@ -110,6 +112,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
     def get_cell_type(cells):
         pass
     def get_script(self):
+        annolevel = self.annolevel
         celltyping = self.celltyping
         tissue = self.tissue
         extraGene = self.extraGene
@@ -141,19 +144,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
         else:
             anno = anno + 'annotation/gene_annotation.xls'
 
-        if singleR_rds == 'default':
-            try:
-                singleR_rds = species_info['singleR']['default']
-            except KeyError:
-                singleR_rds = '# 请手动填写！！！'
-                jinggao(f'{species} 的 singleR参考注释文件 在数据库中不存在 脚本 {out_script} singleR 部分 请手动填写参考数据集rds 或删除不做！！')
-            except TypeError:
-                singleR_rds = '# 请手动填写！！！'
-                jinggao(f'{species} 在数据库中不存在 脚本 {out_script} singleR 部分 请手动填写参考数据集rds 或删除不做！！')
-            else:
-                pass
-        else:
-            singleR_rds = self.singleR_rds
+        
             
         out_script = f'{self.outdir}/cmd_{self.analysis_module}.sh'
         #### 物种信息保存至数据库
@@ -311,25 +302,27 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool annotation \\
 """
             # singleR anno
             if bool(celltyping):
-                cmd += f"""
-Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
--i {seurat_sub}  \\
--f h5seurat \\
--o sub_{cell_name}/Reference_celltype \\
--d h5seurat \\
---update T \\
---assay {assay} \\
---dataslot counts \\
-celltyping \\
--r {singleR_rds} \\
---annolevel single \\
---usecluster F \\
---demethod classic \\
---pointsize 0.3 \\
--n 25 \\
---reduct {reduct2} \\
---species {species}
-"""
+                if singleR_rds == 'default':
+                    try:
+                        singleR_rds = species_info['singleR']['default']
+                    except KeyError:
+                        singleR_rds = '# 请手动填写！！！'
+                        jinggao(f'{species} 的 singleR参考注释文件 在数据库中不存在 脚本  singleR 部分 请手动填写参考数据集rds 或删除不做！！')
+                    except TypeError:
+                        singleR_rds = '# 请手动填写！！！'
+                        jinggao(f'{species} 在数据库中不存在 脚本  singleR 部分 请手动填写参考数据集rds 或删除不做！！')
+                    else:
+                        pass
+                else:
+                    singleR_rds = self.singleR_rds                
+                cmd += cmd_singleR(seurat=seurat_sub,
+                                   output=f"sub_{cell_name}/Reference_celltype",
+                                   assay=assay,
+                                   singleR_rds=singleR_rds,
+                                   reduct2=reduct2,
+                                   species=species,
+                                   annolevel=annolevel) 
+
             # genelist vis marker 
             if extraGene != 'None':
                 cmd += f"""

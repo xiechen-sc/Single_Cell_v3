@@ -25,6 +25,8 @@ def main():
             get_diff_enrich(config_out=config_out)
         elif analysis_module == '2':
             get_sub_clusters(config_out=config_out)
+        elif analysis_module == '5':
+            get_singleR(config_out=config_out)
         else:
             print(f'{analysis_module} :error! No or to be developed')
 

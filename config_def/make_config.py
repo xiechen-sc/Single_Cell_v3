@@ -73,6 +73,7 @@ def get_sub_clusters(config_out):
     extraGene = 'None'
     tissue = 'None'
     celltyping = 'False'
+    annolevel = 'single'
     # 根据数据库进行修改
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
@@ -96,6 +97,7 @@ extraGene: {extraGene}  # 额外输入的 marker 基因可视化列表 genelist.
 celltyping: {celltyping}  # 默认不再提供 singleR结果！
 tissue: {tissue} # brain(脑)、Intestinal(肠)、lung(肺)、gastric(胃癌)、tumour(肿瘤). 非必须
 singleR_rds: {singleR_rds}  #  自动注释参考数据集 如果需要手动指定 请使用绝对路径
+annolevel: {annolevel}  # singleR 注释水平  single  main
 assay: {assay} # 有时候会用 SCT
 rerun: {rerun} # 默认重新寻找高边基因进行聚类
 run: {analysis_type} # 这个不要修改
@@ -181,3 +183,32 @@ run: {analysis_type}   # 这个不要改
 
 """)
     
+# reference celltype
+def get_singleR(config_out):
+    analysis_type = 'singleR'
+    seurat = "['seurat.h5seurat']"
+    result_perfix = "[]"
+    output = 'reference_celltype'
+    assay = 'RNA'
+    singleR_rds = 'default'
+    reduct2 = 'umap'
+    species = 'mouse'
+    annolevel = 'single'
+    # 数据库交互
+    project_info = database_retrieval(config_path=config_out)
+    if 'species' in project_info :
+        species = project_info['species'] # 更新物种信息
+
+    config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type)
+    with open(config_out_file,'w')as f:
+        f.write(f"""
+seurat: {seurat}  # 输入的 seurat 文件 可一次输入多种
+result_perfix: {result_perfix}  # 如果输入多个 seurat 需要每种seurat 对应一种 prefix 防止文件混乱， 如果只做一个亚型注释 可不填此项 ['A','B']
+output: {output} # 输出结果目录
+assay: {assay} # RNA SCT
+singleR_rds: {singleR_rds} # 如果有指定rds 则填写 否则将使用 默认的 rds
+reduct2: {reduct2}  # tsne umao
+species: {species} # 物种信息
+annolevel: {annolevel} # single main
+run: {analysis_type} # 这个不要改！
+""")

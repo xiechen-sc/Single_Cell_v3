@@ -40,6 +40,11 @@ class Diff(BaseClass):
 
                 for cell_type in cell_types:
                     cell_type_out = cell_name_normalization(cell_type)
+                    if cell_type != 'all':
+                        if '[' in cell_type: # 列表
+                            cell_type_out =cell_type.replace("[","").replace("]","").replace(r",",r"_").replace(r" ",r"").replace(r"'",r"")
+                        else:
+                            cell_type_out = cell_type
                     cmd = f"""set -e
 module purge
 module load OESingleCell/3.0.d
@@ -53,10 +58,13 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
 """
 
                     if cell_type != 'all':
-                        if "," in cell_type:
-                            sub_list = "\\'" + cell_type + "\\'"
-                            sub_list = sub_list.replace(",","\\',\\'")
+                        if '[' in cell_type: # 列表
+                            sub_list = cell_type.replace("[","").replace("]","")
+                            cell_type_out = sub_list.replace(r",",r"_").replace(r" ",r"").replace(r"'",r"")
+                            sub_list = sub_list.replace(r"'",r"\'")
+
                         else:
+                            cell_type_out = cell_type
                             sub_list = "\\'" + cell_type + "\\'"
 
                         cmd = cmd + f"--predicate \"{analysis_type} %in% c({sub_list})\" \\\n"
@@ -83,7 +91,10 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/scVis \\
 -t 10 \\
 --assay RNA \\
 --slot data,scale.data \\
---predicate "{analysis_type} %in% c({sub_list}) & {vs_type} %in% c(\\'{treat}\\',\\'{control}\\')" \\
+"""                 
+                    if cell_type != 'all':
+                        cmd += f"""--predicate "{analysis_type} %in% c({sub_list}) & {vs_type} %in% c(\\'{treat}\\',\\'{control}\\')" \\"""
+                    cmd += f"""
 diff_heatmap \\
 -d ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-diff-pval-{p}-FC-{fc}.xls \\
 -n {top} \\
