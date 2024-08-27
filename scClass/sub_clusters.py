@@ -343,10 +343,9 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
   --pointsize 0 \\
   --dodge F
 """
-            else:
-                cmd1 = self.whitelist(cell_name=cell_name_raw,species=species,tissue=tissue,seurat_sub=seurat_sub,reduct2=reduct2,cell_name_out=cell_name)
-                if cmd1 != 'None':
-                    cmd += cmd1
+            cmd1 = self.whitelist(cell_name=cell_name_raw,species=species,tissue=tissue,seurat_sub=seurat_sub,reduct2=reduct2,cell_name_out=cell_name)
+            if cmd1 != 'None':
+                cmd += cmd1
                 
             with open(out_script,"w") as f:
                 f.write(cmd)
