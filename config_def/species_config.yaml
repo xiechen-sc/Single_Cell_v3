@@ -36,3 +36,13 @@ rat:
   Hallmakr: "unknown"
   singleR:
     default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+
+rat_v6:
+  anno: "/data/database/cellranger-refdata/refdata-cellranger-Rnor_6.0/"
+  KEGG: "/data/database/GSEA_gmt/rat/gene_kegg.gmt"
+  GO_BP: /data/database/GSEA_gmt/rat/gene_go_bp.backgroud.gmt
+  Hallmakr: "unknown"
+  singleR:
+    default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+
+   
