@@ -45,4 +45,11 @@ rat_v6:
   singleR:
     default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
 
+sheep:
+  anno: "/data/database/cellranger-refdata/refdata-ARS-UI_Ramb_v2.0/"
+  KEGG: /gpfs/oe-scrna/further_analysis/scRNA/10x/DZOE2023081524/Ovis_aries/kegg.gmt
+  GO_BP: /gpfs/oe-scrna/further_analysis/scRNA/10x/DZOE2023081524/Ovis_aries/go.gmt
+  Hallmakr: "unknown"
+  
+
    
