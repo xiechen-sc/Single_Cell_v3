@@ -64,7 +64,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
                             sub_list = sub_list.replace(r"'",r"\'")
 
                         else:
-                            cell_type_out = cell_type
+                            cell_type_out = cell_name_normalization(cell_type)
                             sub_list = "\\'" + cell_type + "\\'"
 
                         cmd = cmd + f"--predicate \"{analysis_type} %in% c({sub_list})\" \\\n"

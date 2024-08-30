@@ -184,11 +184,11 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
 """
             if cell_name != 'all':
                 cmd += f'--predicate  "{col_name} %in% c({cell_type})"   \\\n'
-            cmd += f"bclust   \\\n--reduct1 {reduct1}  \\\n"
+            cmd += f"bclust   \\\n--reduct1 {reduct1}  \\"
             if reduct1 == 'mnn':
-                cmd += f"--batchid {batchid} \\\n--components 10  \\"
+                cmd += f"\n--batchid {batchid} \\\n--components 10  \\"
             elif reduct1 == "pca,harmony":
-                cmd += f"--batchid {batchid} \\\n-t 20 \\\n-y 30 \\"
+                cmd += f"\n--batchid {batchid} \\\n-t 20 \\\n-y 30 \\"
             elif reduct1 == 'pca':
                 pass
             else:
