@@ -42,9 +42,9 @@ class Diff(BaseClass):
                     cell_type_out = cell_name_normalization(cell_type)
                     if cell_type != 'all':
                         if '[' in cell_type: # 列表
-                            cell_type_out =cell_type.replace("[","").replace("]","").replace(r",",r"_").replace(r" ",r"").replace(r"'",r"")
+                            cell_type_out = cell_name_normalization(cell_type.replace("[","").replace("]","").replace(r",",r"_").replace(r" ",r"").replace(r"'",r""))
                         else:
-                            cell_type_out = cell_type
+                            cell_type_out = cell_name_normalization(cell_type)
                     cmd = f"""set -e
 module purge
 module load OESingleCell/3.0.d
@@ -60,7 +60,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
                     if cell_type != 'all':
                         if '[' in cell_type: # 列表
                             sub_list = cell_type.replace("[","").replace("]","")
-                            cell_type_out = sub_list.replace(r",",r"_").replace(r" ",r"").replace(r"'",r"")
+                            cell_type_out = cell_name_normalization(sub_list.replace(r",",r"_").replace(r" ",r"").replace(r"'",r""))
                             sub_list = sub_list.replace(r"'",r"\'")
 
                         else:

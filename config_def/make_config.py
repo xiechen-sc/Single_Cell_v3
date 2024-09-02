@@ -157,7 +157,7 @@ def get_diff_enrich(config_out):
     fc = 1.5
     p = 0.05
     vs_type = 'group'
-    top = 10
+    top = 20
     analysis_type = 'diff'
     # 根据数据库进行修改
     project_info = database_retrieval(config_path=config_out)
