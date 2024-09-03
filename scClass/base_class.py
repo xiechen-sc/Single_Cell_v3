@@ -5,12 +5,14 @@ class BaseClass:
     ###  定义类 将 yaml 递归创建至 类中
     def __init__(self,config_path=None,project_id=None,**kwargs):
         self.outdir = config_path
+        self.project_info = self.select_sql()
         self.project_id = project_id
         for key, value in kwargs.items():
             if isinstance(value, dict):
                 setattr(self, key, BaseClass(**value))
             else:
                 setattr(self, key, value)
+
     
     def insert_sql(self):  # 增
         pass
@@ -22,4 +24,5 @@ class BaseClass:
         pass
 
     def select_sql(self):  # 查
-        return sql_scelect(self.project_id)
+        project_info = database_retrieval(self.outdir)
+        return project_info
