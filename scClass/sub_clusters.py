@@ -314,7 +314,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool annotation \\
                     else:
                         pass
                 else:
-                    singleR_rds = self.singleR_rds                
+                    pass                
                 cmd += cmd_singleR(seurat=seurat_sub,
                                    output=f"sub_{cell_name}/Reference_celltype",
                                    assay=assay,
