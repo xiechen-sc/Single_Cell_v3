@@ -74,6 +74,7 @@ def get_sub_clusters(config_out):
     tissue = 'None'
     celltyping = 'False'
     annolevel = 'single'
+    delete_special = 'True'
     # 根据数据库进行修改
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
@@ -95,6 +96,7 @@ cells: {cells}  # 哪些细胞类型需要做降维 如果需要将两种细胞�
 extraGene: {extraGene}  # 额外输入的 marker 基因可视化列表 genelist.txt 若为 None 则不进行核外的 marker 可视化
 # 下方内容选择性填写！！！
 celltyping: {celltyping}  # 默认不再提供 singleR结果！
+delete_special: {delete_special}  # 是否在高变基因中去除列表中的线粒体、热休克、核糖体、解离相关、lncRNA、TR_V_gene和血红蛋白基因（默认去除，仅人小鼠有效）
 tissue: {tissue} # brain(脑)、Intestinal(肠)、lung(肺)、gastric(胃癌)、tumour(肿瘤). 非必须
 singleR_rds: {singleR_rds}  #  自动注释参考数据集 如果需要手动指定 请使用绝对路径
 annolevel: {annolevel}  # singleR 注释水平  single  main

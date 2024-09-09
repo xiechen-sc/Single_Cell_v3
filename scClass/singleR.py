@@ -1,6 +1,7 @@
 from .base_class import BaseClass
 from single_cell_auto.util import *
 from single_cell_auto.cmd_module import *
+import re
 class SingleR(BaseClass):
 
     def get_script(self):
@@ -12,6 +13,7 @@ class SingleR(BaseClass):
         singleR_rds = self.singleR_rds
         reduct2 = self.reduct2
         species = self.species
+        species_input2singleR = re.sub('_.*','',species)  
         annolevel = self.annolevel
         species_info = get_species_info(species=species)
         if singleR_rds == 'default':
@@ -33,7 +35,7 @@ class SingleR(BaseClass):
         if prefix_num == 0 and seurat_num == 1:
             out_script = outdir + '/cmd_singleR.sh'
             seurat = seurat[0]
-            cmd = cmd_singleR(seurat=seurat,assay=assay,output=output,singleR_rds=singleR_rds,reduct2=reduct2,species=species,annolevel=annolevel)
+            cmd = cmd_singleR(seurat=seurat,assay=assay,output=output,singleR_rds=singleR_rds,reduct2=reduct2,species=species_input2singleR,annolevel=annolevel)
             f = open(out_script,'w')
             f.write(cmd)
             f.close()
@@ -46,7 +48,7 @@ class SingleR(BaseClass):
                 seurat_1 = seurat[i]
                 prefix_1 = prefix[i]
                 output_1 = output + f'/{prefix_1}'
-                cmd = cmd_singleR(seurat=seurat_1,assay=assay,output=output_1,singleR_rds=singleR_rds,reduct2=reduct2,species=species,annolevel=annolevel)
+                cmd = cmd_singleR(seurat=seurat_1,assay=assay,output=output_1,singleR_rds=singleR_rds,reduct2=reduct2,species=species_input2singleR,annolevel=annolevel)
                 out_script = outdir + f'/cmd_singleR_{prefix_1}.sh'
                 f = open(out_script,'w')
                 f.write(cmd)

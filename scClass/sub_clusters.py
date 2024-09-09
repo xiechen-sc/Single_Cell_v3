@@ -10,7 +10,7 @@ class Sub_Clusters(BaseClass):
         if cell_name == 'all':
             print("既未指定细胞类型，又无法获取有效的细胞类型信息，不执行基因可视化。")
             return 'None'
-        elif species not in ['human','mouse','rat']:
+        elif species not in ['human','mouse','rat','human_2020','mouse_2020','human_2024','mouse_2024',]:
             print("非常规物种不适用默认基因列表")
             return 'None'
         elif tissue not in  ['brain','Intestinal','lung','gastric','tumour']:
@@ -127,6 +127,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
         assay = self.assay
         rerun = self.rerun
         singleR_rds = self.singleR_rds
+        delete_special = self.delete_special
 
         species_info = get_species_info(species=species)
         get_anno = True
@@ -142,6 +143,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
             jinggao(f'{species} 在数据库中不存在 请手动填写！')
             get_anno = False
         else:
+            anno_dir = anno
             anno = anno + 'annotation/gene_annotation.xls'
 
         
@@ -200,9 +202,12 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
 --resolution {resolution}   \\
 --rerun {rerun}   \\
 --pointsize  0.5  \\
---palette customecol2
+--palette customecol2"""     
+            if species in Frequent_species() and delete_special:  # 判断是否在人和小鼠中
+                cmd += f""" \\
+--ref {anno_dir}
 
-"""           
+"""
             # vis by clusters
             cmd += f"""
 # vis by clusters
@@ -314,13 +319,14 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool annotation \\
                     else:
                         pass
                 else:
-                    pass                
+                    pass
+                species_input2singleR = re.sub('_.*','',species)               
                 cmd += cmd_singleR(seurat=seurat_sub,
                                    output=f"sub_{cell_name}/Reference_celltype",
                                    assay=assay,
                                    singleR_rds=singleR_rds,
                                    reduct2=reduct2,
-                                   species=species,
+                                   species=species_input2singleR,
                                    annolevel=annolevel) 
 
             # genelist vis marker 

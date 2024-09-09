@@ -111,9 +111,12 @@ def database_add(config_path,config_info):  # 传入的 config_info 是一个字
 
     save_dict_to_yaml(data_base_file=data_base_file, project_info=project_info)
     
+def v4tov3():
+    pass # 待良钰开发
 
-
-
+def Frequent_species():  # 记录常见的物种
+    fs = ['human','human_2020','human_2024','mouse','mouse_2020','mouse_2024']
+    return(fs)
 
 
 

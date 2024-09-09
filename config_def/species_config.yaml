@@ -9,7 +9,7 @@
 #     default:
 #     others:
 
-# 人 
+# 人 默认
 human:
   anno: /data/database/cellranger-refdata/refdata-gex-GRCh38-2020-A/ 
   KEGG: /data/database/GSEA_gmt/human/v2023/c2.cp.kegg.v2023.1.Hs.symbols.gmt
@@ -19,10 +19,46 @@ human:
     default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
     pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
 
+# 人 2020
+human_2020:
+  anno: /data/database/cellranger-refdata/refdata-gex-GRCh38-2020-A/ 
+  KEGG: /data/database/GSEA_gmt/human/v2023/c2.cp.kegg.v2023.1.Hs.symbols.gmt
+  GO_BP: /data/database/GSEA_gmt/human/v2023/c5.go.bp.v2023.1.Hs.symbols.gmt
+  Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/h.all.v2023.1.Hs.symbols.gmt
+  singleR:
+    default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
+    pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
 
-# 小鼠
+# 人 2024
+human_2024:
+  anno: /data/database/cellranger-refdata/refdata-gex-GRCh38-2024-A/
+  KEGG: /data/database/GSEA_gmt/human/v2023/c2.cp.kegg.v2023.1.Hs.symbols.gmt
+  GO_BP: /data/database/GSEA_gmt/human/v2023/c5.go.bp.v2023.1.Hs.symbols.gmt
+  Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/h.all.v2023.1.Hs.symbols.gmt
+  singleR:
+    default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
+    pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
+
+# 小鼠  默认 2020
 mouse:
   anno: /data/database/cellranger-refdata/refdata-gex-mm10-2020-A/
+  KEGG: /data/database/GSEA_gmt/mouse/gene_kegg.gmt
+  GO_BP: /data/database/GSEA_gmt/mouse/v2023/m5.go.bp.v2023.1.Mm.symbols.gmt
+  Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
+  singleR:
+    default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+# 小鼠 2020
+mouse_2020:
+  anno: /data/database/cellranger-refdata/refdata-gex-mm10-2020-A/
+  KEGG: /data/database/GSEA_gmt/mouse/gene_kegg.gmt
+  GO_BP: /data/database/GSEA_gmt/mouse/v2023/m5.go.bp.v2023.1.Mm.symbols.gmt
+  Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
+  singleR:
+    default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+
+# 小鼠 2024
+mouse_2024:
+  anno: /data/database/cellranger-refdata/refdata-gex-GRCm39-2024-A/
   KEGG: /data/database/GSEA_gmt/mouse/gene_kegg.gmt
   GO_BP: /data/database/GSEA_gmt/mouse/v2023/m5.go.bp.v2023.1.Mm.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
