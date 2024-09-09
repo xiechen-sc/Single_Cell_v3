@@ -10,7 +10,7 @@ class Sub_Clusters(BaseClass):
         if cell_name == 'all':
             print("既未指定细胞类型，又无法获取有效的细胞类型信息，不执行基因可视化。")
             return 'None'
-        elif species not in ['human','mouse','rat','human_2020','mouse_2020','human_2024','mouse_2024',]:
+        elif species not in Frequent_species():
             print("非常规物种不适用默认基因列表")
             return 'None'
         elif tissue not in  ['brain','Intestinal','lung','gastric','tumour']:
