@@ -112,14 +112,16 @@ rm ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}
 -o {cell_type_out}-Diffexp/{treat}-vs-{control}/enrichment \\
 -d TRUE
 """
+                    
+                    cmd_vol = volcano(
+                        input=f'./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-all_diffexp_genes_anno.xls',
+                        pvalue=p,
+                        log2fc=fc,
+                        output=f'./{cell_type_out}-Diffexp/{treat}-vs-{control}/'
+                                )
                     if volcano_plot:
-                         cmd += volcano(
-                              input=f'./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-all_diffexp_genes_anno.xls',
-                              pvalue=p,
-                              log2fc=fc,
-                              output=f'./{cell_type_out}-Diffexp/{treat}-vs-{control}/'
-                                        )
-                         
+                        cmd += cmd_vol
+                        
                     out_script = f'{outdir}/cmd_{cell_type_out}-{treat}-vs-{control}.diff.sh'
                     with open(out_script,"w") as f:
                         f.write(cmd)
