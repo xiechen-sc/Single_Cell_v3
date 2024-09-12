@@ -22,3 +22,16 @@ celltyping \\
 --species {species}
 """
     return cmd
+
+
+def volcano(input,pvalue,log2fc,output):
+    cmd = f"""
+set -e
+module purge && module load OESingleCell/3.0.d
+Rscript /gpfs/oe-scrna/pipeline/scRNA-seq_further_analysis/volcanoplot/volcano.r \\
+-i {input} \\
+-p {pvalue} \\
+-f {log2fc} \\
+-o {output}
+"""
+    return cmd

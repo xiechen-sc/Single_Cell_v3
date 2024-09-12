@@ -1,6 +1,6 @@
 from .base_class import BaseClass
 from single_cell_auto.util import cell_name_normalization,get_species_info,jinggao,database_add
-
+from single_cell_auto.cmd_module import volcano
 # diff
 class Diff(BaseClass):
 
@@ -15,6 +15,7 @@ class Diff(BaseClass):
             p = self.p
             vs_type = self.vs_type
             species = self.species
+            volcano_plot = self.volcano_plot
 
             top = self.top
             outdir = self.outdir
@@ -93,9 +94,8 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/scVis \\
 --slot data,scale.data \\
 """                 
                     if cell_type != 'all':
-                        cmd += f"""--predicate "{analysis_type} %in% c({sub_list}) & {vs_type} %in% c(\\'{treat}\\',\\'{control}\\')" \\"""
-                    cmd += f"""
-diff_heatmap \\
+                        cmd += f"""--predicate "{analysis_type} %in% c({sub_list}) & {vs_type} %in% c(\\'{treat}\\',\\'{control}\\')" \\\n"""
+                    cmd += f"""diff_heatmap \\
 -d ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-diff-pval-{p}-FC-{fc}.xls \\
 -n {top} \\
 -g {vs_type} \\
@@ -111,15 +111,15 @@ rm ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}
 -g  {anno} \\
 -o {cell_type_out}-Diffexp/{treat}-vs-{control}/enrichment \\
 -d TRUE
-
-
-
-Rscript /gpfs/oe-scrna/pipeline/scRNA-seq_further_analysis/volcanoplot/volcano.r \\
--i ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-all_diffexp_genes_anno.xls \\
--p {p} \\
--f {fc} \\
--o ./{cell_type_out}-Diffexp/{treat}-vs-{control}/
 """
+                    if volcano_plot:
+                         cmd += volcano(
+                              input=f'./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-all_diffexp_genes_anno.xls',
+                              pvalue=p,
+                              log2fc=fc,
+                              output=f'./{cell_type_out}-Diffexp/{treat}-vs-{control}/'
+                                        )
+                         
                     out_script = f'{outdir}/cmd_{cell_type_out}-{treat}-vs-{control}.diff.sh'
                     with open(out_script,"w") as f:
                         f.write(cmd)

@@ -161,6 +161,7 @@ def get_diff_enrich(config_out):
     vs_type = 'group'
     top = 20
     analysis_type = 'diff'
+    volcano_plot = 'False'
     # 根据数据库进行修改
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
@@ -180,6 +181,7 @@ fc: {fc}  # 差异大小 foldchange
 p: {p}  # pvalue 显著性
 vs_type: {vs_type}  # 对应上方的 treat control 决定了基于metadata中哪一列选择实验组与对照组
 species: {species} # 填写物种
+volcano_plot: {volcano_plot}  # 是否绘制火山图 默认不出图
 top: {top}  # top 绘制热图基因数
 run: {analysis_type}   # 这个不要改
 
