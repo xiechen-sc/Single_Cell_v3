@@ -121,6 +121,11 @@ rm ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}
                                 )
                     if volcano_plot:
                         cmd += cmd_vol
+                    else:
+                        out_script_vol = f'{outdir}/volcano_cmd_{cell_type_out}-{treat}-vs-{control}.diff.sh'
+                        with open(out_script_vol,"w") as f:
+                            f.write(cmd_vol)
+                            print(f"脚本 {out_script_vol} 已生成,本次作为脚本备份，后续需要绘制火山图可直接执行此脚本")
                         
                     out_script = f'{outdir}/cmd_{cell_type_out}-{treat}-vs-{control}.diff.sh'
                     with open(out_script,"w") as f:
