@@ -203,7 +203,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
 --rerun {rerun}   \\
 --pointsize  0.5  \\
 --palette customecol2"""     
-            if species in Frequent_species() and delete_special:  # 判断是否在人和小鼠中
+            if delete_special:  # 判断是否在人和小鼠中
                 cmd += f""" \\
 --ref {anno_dir}
 
