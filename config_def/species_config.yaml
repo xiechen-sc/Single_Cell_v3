@@ -42,7 +42,7 @@ human_2024:
 # 小鼠  默认 2020
 mouse:
   anno: /data/database/cellranger-refdata/refdata-gex-mm10-2020-A/
-  KEGG: /data/database/GSEA_gmt/mouse/gene_kegg.gmt
+  KEGG: /data/database/GSEA_gmt/mouse/v2024/gene_kegg.gmt
   GO_BP: /data/database/GSEA_gmt/mouse/v2023/m5.go.bp.v2023.1.Mm.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
   singleR:
