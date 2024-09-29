@@ -32,6 +32,12 @@ def get_featureplot(config_out):
     groupby = 'clusters'
     reduct = 'umap'
     plot = 'vlnplot,featureplot'
+    pvalue = 'None'
+    splitby = 'None'
+    dotsplit = 'False'
+    selcet = 'False'
+    select_col = 'new_celltype'
+    select_lst = ['B_cells',['T_cells','NK']]
     ## 后续引入 mysql 数据库
 
 
@@ -41,7 +47,7 @@ def get_featureplot(config_out):
     f = open(config_out_file, 'w')
     f.write(f"""
 input_seurat: {seurat}  # 输入的 seurat 文件
-plot: {plot}  # 可视化方法，可选ridgeplot,vlnplot,dotplot,featureplot,boxplot
+plot: {plot}  # 可视化方法，可选 ridgeplot,vlnplot,dotplot,featureplot,splitby_featureplot,boxplot
 groupby: {groupby} # 分组展示条件，可选clusters、group等
 # 下方参数可选
 reduct: {reduct}  # 映射降维方式
@@ -49,6 +55,12 @@ output: {out}  # 输出目录名
 cpu : {cpu}  # CPU 使用数
 assay: {assay}  # 正常项目都是 RNA 部分会出现 SCT 或其他
 genelist: {genelist}  # 输入的 genlist 文件 
+pvalue: {pvalue}  # 为vlnplot和boxplot组间比较，添加p值，可使用all:all 例：--pvalue group1:group2+group2:group3
+splitby: {splitby}  # 用来分面绘图的组名,可设为group等
+dotsplit: {dotsplit}  # 气泡图是否进行分面展示（默认FALSE），如果为TRUE，根据基因列表有多少列进行gap分隔，并对列名进行简写，如下：
+selcet: {selcet}  # 是否 subset 总细胞
+select_col: {select_col}  # 选择 subset 的列
+select_lst: {select_lst}  # 选择 subset 的列的具体内容, 列表代表 将列表内的细胞合在一起后执行分析
 run: featureplot  # 这个不要改！
     """)
     f.close()

@@ -26,3 +26,10 @@ class BaseClass:
     def select_sql(self):  # 查
         project_info = database_retrieval(self.outdir)
         return project_info
+    
+    def add_cmd_row(self,cmd,end=False):
+        if end:
+            normalize_cmd = cmd + '\n\n'
+        else:
+            normalize_cmd = cmd + ' \\\n'
+        return normalize_cmd
