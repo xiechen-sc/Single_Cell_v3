@@ -1,7 +1,7 @@
 from .base_class import BaseClass
 from single_cell_auto.util import *
 import re
-# featureplot
+# featureplot 
 class Featureplot(BaseClass):
         analysis_module = 'featureplot'
 
@@ -31,7 +31,10 @@ class Featureplot(BaseClass):
                 select_lst_all = ['all']
             for col_type in select_lst_all:
                 if col_type != 'all':
-                    output_dir = output + '_' + col_type
+                    if type(col_type) == list:
+                        output_dir = output + '_' + '_'.join(col_type)
+                    else:
+                        output_dir = output + '_' + col_type
                 else:
                     output_dir = output
                 cmd += self.add_cmd_row('Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool')  
