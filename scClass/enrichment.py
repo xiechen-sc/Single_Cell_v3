@@ -76,7 +76,7 @@ class Enrichment(BaseClass):
             for i in range(len_input):
                 input_i = input[i]
                 analysis_model_i = analysis_model[i]
-                if len_input == 1:
+                if len_prefix_lst == 0:
                     prefix = 'all'
                 else:
                     prefix = str(prefix_lst[i])
