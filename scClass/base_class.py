@@ -12,6 +12,7 @@ class BaseClass:
                 setattr(self, key, BaseClass(**value))
             else:
                 setattr(self, key, value)
+        self.get_project_info()
 
     
     def insert_sql(self):  # 增
@@ -33,3 +34,17 @@ class BaseClass:
         else:
             normalize_cmd = cmd + ' \\\n'
         return normalize_cmd
+    
+    def seurat2rds(self,seurat,outdir):
+        import os
+        cmd_seurat2rds = f"/gpfs/oe-scrna/guopengyu/script/rds.sh -i {seurat} -o {outdir}"
+        print('正在生成 data_ob_v3.rds , 请稍后······')
+        os.system(cmd_seurat2rds)
+        out_rds = outdir + '/data_ob_v3.rds'
+        print(f'已生成 data_ob_v3.rds , 绝对路径为: {out_rds}')
+        return out_rds
+    
+    def get_project_info(self):
+        config_path = self.outdir
+        self.pjif = database_retrieval(config_path)
+        
