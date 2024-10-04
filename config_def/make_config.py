@@ -234,8 +234,10 @@ def get_enrichment(config_out):
     analysis_type = 'enrichment'
     species = 'mouse'
     input = "['group_CLP-vs-CON-diff-pvalue-0.05-FC-1.5.xls']"
+    prefix_lst = '[]'
     analysis_model = "[0]"
     top_n = '50' 
+    sort_by = 'p-value'
     # 数据库交互
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
@@ -245,13 +247,15 @@ def get_enrichment(config_out):
     with open(config_out_file,'w')as f:
         f.write(f"""
 # 0:指定基因列表或列表名通配富集;  top200_markers_for_cluster*.xls
-# 1:针对流程产出marker_anno基因列表进行clusters拆分并富集;   SPOCD1_high-vs-low-all_diffexp_genes_anno.xls
+# 1:针对流程产出marker_anno基因列表进行clusters拆分并富集;   all_markers_for_each_cluster_anno.xls
 # 2:指定差异基因列表富集;  group_CLP-vs-CON-diff-pvalue-0.05-FC-1.5.xls
 # 3:指定差异基因目录富集;  /gpfs/oe-scrna/jhyu/project/st/DZOE2023061713-b2-qiankejian-daiwei-cyffpe-m/result/diffexp/
 # 4:针对monocle产出module_anno基因列表进行module拆分并富集  pseudotime_heatmap_gene_module_anno.xls
 analysis_model: {analysis_model}  # 见上4行注释 必须与input 的 列表元素长度保持一致！ 或者只填写 一种 model
 top_n: {top_n}  # 当分析模式为 1 时生效 提供 差异目录结果下的 该文件 SPOCD1_high-vs-low-all_diffexp_genes_anno.xls 每个clusters 取top n个marker基因
+sort_by: {sort_by}  # 当分析模式为 1 时生效 提供的 input 文件需要基于哪一列排序 默认 'p-value' 可选 'avg_log2FC' 'q-value' 
 input: {input}  # 输入的 input 文件 可一次输入多种 input  输入可见上方四行注释 可一次填写多个
 species: {species} # 物种信息
+prefix_lst: {prefix_lst}  # 生成目录前缀，若不填写 则按照input 顺序 写入 0 1 2 3 4......
 run: {analysis_type} # 这个不要改！
 """)   
