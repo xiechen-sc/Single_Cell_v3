@@ -259,3 +259,55 @@ species: {species} # 物种信息
 prefix_lst: {prefix_lst}  # 生成目录前缀，若不填写 则按照input 顺序 写入 0 1 2 3 4......
 run: {analysis_type} # 这个不要改！
 """)   
+        
+
+def get_scenic(config_out):
+    analysis_type = 'scenic'
+    step1_run = 'False'
+    step1_input = 'rds/data_ob_v3.rds'
+    species = 'mouse'
+    coexMethod = 'top10perTarget'
+    step1_outdir = './scenic_step1'
+    step2_run = 'False'
+    step2_input = 'rds/data_ob_v3.rds'
+    result_rds = 'int/3.4_regulonAUC.Rds'
+    rss_rank_top_gene = '3'
+    groupby = 'new_celltype'
+    sub_col = 'False'
+    seurat_sub_col = 'new_celltype'
+    seurat_sub_col_value = '[]'
+    use_color_anno = 'TRUE'
+    color_file = ''
+    palette = 'customecol2'
+    cluster_n = '4'
+# 数据库交互
+    project_info = database_retrieval(config_path=config_out)
+    if 'species' in project_info :
+        species = project_info['species'] # 更新物种信息 
+
+    config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type)# 数据库交互
+    project_info = database_retrieval(config_path=config_out)
+    if 'species' in project_info :
+        species = project_info['species'] # 更新物种信息 
+    config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type)
+    with open(config_out_file,'w')as f:
+        f.write(f"""
+step1_run: {step1_run}  # 是否执行第一步 生成 AUC 活性矩阵
+step1_input: {step1_input}  # 输入的 seurat 对象 可以是 rds 也可以是 h5seurat (自动转化 需要时间)
+species: {species}  # 只能是human或者mouse (各种参考基因组版本均可)
+coexMethod: {coexMethod}  # 计算调控子共表达的方法（可选：w0.001,w0.005,top50,top50perTarget,top10perTarget,top5perTarget）
+step1_outdir: {step1_outdir}  # 活性矩阵输出目录
+step2_run:  {step2_run}  # 是否执行 RAS CSI 
+step2_input:  {step2_input}
+result_rds: {result_rds}
+rss_rank_top_gene: {rss_rank_top_gene}
+groupby: {groupby}
+sub_col: {sub_col}
+seurat_sub_col: {seurat_sub_col}
+seurat_sub_col_value: {seurat_sub_col_value}
+use_color_anno: {use_color_anno}
+color_file: {color_file}
+palette: {palette}
+cluster_n:  {cluster_n}
+analysis_type: {analysis_type}
+""")

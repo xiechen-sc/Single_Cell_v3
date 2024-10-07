@@ -15,9 +15,11 @@ human:
   KEGG: /data/database/GSEA_gmt/human/v2023/c2.cp.kegg.v2023.1.Hs.symbols.gmt
   GO_BP: /data/database/GSEA_gmt/human/v2023/c5.go.bp.v2023.1.Hs.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/h.all.v2023.1.Hs.symbols.gmt
+  scenic: /data/database/SCENIC/human
   singleR:
     default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
     pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
+
 
 # 人 2020
 human_2020:
@@ -25,6 +27,7 @@ human_2020:
   KEGG: /data/database/GSEA_gmt/human/v2023/c2.cp.kegg.v2023.1.Hs.symbols.gmt
   GO_BP: /data/database/GSEA_gmt/human/v2023/c5.go.bp.v2023.1.Hs.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/h.all.v2023.1.Hs.symbols.gmt
+  scenic: /data/database/SCENIC/human
   singleR:
     default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
     pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
@@ -35,6 +38,7 @@ human_2024:
   KEGG: /data/database/GSEA_gmt/human/v2023/c2.cp.kegg.v2023.1.Hs.symbols.gmt
   GO_BP: /data/database/GSEA_gmt/human/v2023/c5.go.bp.v2023.1.Hs.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/h.all.v2023.1.Hs.symbols.gmt
+  scenic: /data/database/SCENIC/human
   singleR:
     default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
     pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
@@ -45,6 +49,7 @@ mouse:
   KEGG: /data/database/GSEA_gmt/mouse/v2024/gene_kegg.gmt
   GO_BP: /data/database/GSEA_gmt/mouse/v2023/m5.go.bp.v2023.1.Mm.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
+  scenic: /data/database/SCENIC/mouse
   singleR:
     default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
 # 小鼠 2020
@@ -53,6 +58,7 @@ mouse_2020:
   KEGG: /data/database/GSEA_gmt/mouse/gene_kegg.gmt
   GO_BP: /data/database/GSEA_gmt/mouse/v2023/m5.go.bp.v2023.1.Mm.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
+  scenic: /data/database/SCENIC/mouse
   singleR:
     default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
 
@@ -62,6 +68,7 @@ mouse_2024:
   KEGG: /data/database/GSEA_gmt/mouse/gene_kegg.gmt
   GO_BP: /data/database/GSEA_gmt/mouse/v2023/m5.go.bp.v2023.1.Mm.symbols.gmt
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
+  scenic: /data/database/SCENIC/mouse
   singleR:
     default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
 
