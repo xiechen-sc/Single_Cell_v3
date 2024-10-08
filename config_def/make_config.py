@@ -280,12 +280,8 @@ def get_scenic(config_out):
     color_file = ''
     palette = 'customecol2'
     cluster_n = '4'
-# 数据库交互
-    project_info = database_retrieval(config_path=config_out)
-    if 'species' in project_info :
-        species = project_info['species'] # 更新物种信息 
 
-    config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type)# 数据库交互
+    # 数据库交互
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
         species = project_info['species'] # 更新物种信息 

@@ -13,6 +13,11 @@ class BaseClass:
             else:
                 setattr(self, key, value)
         self.get_project_info()
+        self.update_info_bag = {}
+
+    # 程序结束更新数据库
+    def __del__(self):
+        self.project_info_update()
 
     
     def insert_sql(self):  # 增
@@ -36,15 +41,17 @@ class BaseClass:
         return normalize_cmd
     
     def seurat2rds(self,seurat,outdir):
-        import os
-        cmd_seurat2rds = f"/gpfs/oe-scrna/guopengyu/script/rds.sh -i {seurat} -o {outdir}"
-        print('正在生成 data_ob_v3.rds , 请稍后······')
-        os.system(cmd_seurat2rds)
+        cmd_seurat2rds = f"########## seurat2rds\n/gpfs/oe-scrna/guopengyu/script/rds.sh -i {seurat} -o {outdir}\n##########\n"
         out_rds = outdir + '/data_ob_v3.rds'
-        print(f'已生成 data_ob_v3.rds , 绝对路径为: {out_rds}')
-        return out_rds
+        return cmd_seurat2rds,out_rds
     
+    # 数据库信息添加至对象的属性
     def get_project_info(self):
         config_path = self.outdir
+        self.pjif = {}
         self.pjif = database_retrieval(config_path)
-        
+    # 更新数据库信息
+    def project_info_update(self):  # 传入的 update_info_bag 是一个字典  由模块开发者认为有必要添加进数据库的内容 会往其中添加 
+        self.pjif = self.pjif | self.update_info_bag
+        config_path = self.outdir
+        database_add(config_path,self.pjif) 

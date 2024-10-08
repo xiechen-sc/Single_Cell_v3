@@ -4,3 +4,4 @@ from .diff import Diff
 from .sub_clusters import Sub_Clusters
 from .singleR import SingleR
 from .enrichment import Enrichment
+from .scenic import Scenic

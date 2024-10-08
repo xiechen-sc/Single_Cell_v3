@@ -29,6 +29,8 @@ def main():
             get_singleR(config_out=config_out)
         elif analysis_module == '6':
             get_enrichment(config_out=config_out)
+        elif analysis_module == '7':
+            get_scenic(config_out=config_out)
         else:
             print(f'{analysis_module} :error! No or to be developed')
 
