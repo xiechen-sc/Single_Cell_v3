@@ -48,10 +48,13 @@ class BaseClass:
     # 数据库信息添加至对象的属性
     def get_project_info(self):
         config_path = self.outdir
-        self.pjif = {}
         self.pjif = database_retrieval(config_path)
+        
     # 更新数据库信息
     def project_info_update(self):  # 传入的 update_info_bag 是一个字典  由模块开发者认为有必要添加进数据库的内容 会往其中添加 
         self.pjif = self.pjif | self.update_info_bag
         config_path = self.outdir
-        database_add(config_path,self.pjif) 
+        project_id = get_project_id(config_path)
+        data_base_file = get_database_path(config_path=config_path,project_id=project_id)
+        save_dict_to_yaml(data_base_file=data_base_file, project_info=self.pjif)
+        
