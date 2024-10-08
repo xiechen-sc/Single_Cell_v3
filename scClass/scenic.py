@@ -135,7 +135,8 @@ class Scenic(BaseClass):
             if 'step1_rst' not in db_update_bg['scenic']:
                 db_update_bg['scenic']['step1_rst'] = [rst_path]
             else:
-                db_update_bg['scenic']['step1_rst'].append(rst_path)
+                if rst_path not in db_update_bg['scenic']['step1_rst']:
+                    db_update_bg['scenic']['step1_rst'].append(rst_path)
             db_update_bg['scenic']['scenic_species'] = scenic_species
             db_update_bg['scenic']['step1_rds'] = os.path.abspath(step1_input_2) 
         
