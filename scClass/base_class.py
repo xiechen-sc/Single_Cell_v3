@@ -41,15 +41,37 @@ class BaseClass:
         return normalize_cmd
     
     def seurat2rds(self,seurat,outdir):
-        cmd_seurat2rds = f"########## seurat2rds\n/gpfs/oe-scrna/guopengyu/script/rds.sh -i {seurat} -o {outdir}\n##########\n"
-        out_rds = outdir + '/data_ob_v3.rds'
+        outdir2 = outdir + '/rds'
+        outdir3 = outdir2  # 初始化 outdir3
+        counts = 0
+        while os.path.exists(outdir3):
+            outdir3 = outdir2 + f'_v{counts}'
+            counts += 1
+        outdir2 = outdir3
+        out_rds = outdir2 + '/data_ob_v3.rds'
+        cmd_seurat2rds = f"\n########## seurat2rds\n/gpfs/oe-scrna/guopengyu/script/rds.sh -i {seurat} -o {outdir2}\n########## seurat2rds finish!\n\n"
+        
         return cmd_seurat2rds,out_rds
+    
+    def judgment_seurat_rds(self,input_file):
+        outdir = self.outdir
+        lst = input_file.split('.')
+        lst_len = len(lst)
+        suffix = lst[lst_len-1]
+        if suffix == 'h5seurat':
+            cmd_seurat2rds,out_rds = self.seurat2rds(seurat=input_file,outdir=outdir)
+            return cmd_seurat2rds,out_rds
+        elif suffix == 'rds':
+            return '',input_file
+        else:
+            jinggao('输入文件后缀错误，只能是 rds 或 h5seurat!')
+            exit()
     
     # 数据库信息添加至对象的属性
     def get_project_info(self):
         config_path = self.outdir
         self.pjif = database_retrieval(config_path)
-        
+
     # 更新数据库信息
     def project_info_update(self):  # 传入的 update_info_bag 是一个字典  由模块开发者认为有必要添加进数据库的内容 会往其中添加 
         self.pjif = self.pjif | self.update_info_bag

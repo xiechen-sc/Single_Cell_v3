@@ -270,7 +270,7 @@ def get_scenic(config_out):
     step1_outdir = './scenic_step1'
     step2_run = 'False'
     step2_input = 'rds/data_ob_v3.rds'
-    result_dir = 'int/'
+    result_dir = 'scenic_step1/int/3.4_regulonAUC.Rds'
     rss_rank_top_gene = '3'
     groupby = 'new_celltype'
     sub_seurat = 'False'
@@ -278,13 +278,17 @@ def get_scenic(config_out):
     seurat_sub_col_value = '[]'
     use_color_anno = 'TRUE'
     color_file = ''
-    palette = 'customecol2'
+    palette = ''
     cluster_n = '4'
-
+    rst_all = '暂无'
     # 数据库交互
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
         species = project_info['species'] # 更新物种信息 
+    if 'scenic' in project_info:
+        if 'step1_rds' in project_info['scenic']:
+            result_dir = project_info['scenic']['step1_rst'][0]
+            rst_all = ','.join(project_info['scenic']['step1_rst'])
     config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type)
     with open(config_out_file,'w')as f:
         f.write(f"""
@@ -301,10 +305,12 @@ groupby: {groupby}  # 图片展示的组别信息
 sub_seurat: {sub_seurat}  # 是否对 seurat 对象取子集
 seurat_sub_col: {seurat_sub_col}  # 取子集的列名(metadata colnames)
 seurat_sub_col_value: {seurat_sub_col_value}  # 取子集的名称，列表内的列表为一次性取出多个， 列表内的字符串元素为分别取子集
-# 下方内容选择性填写 建议默认
+# 下方内容选择性填写 建议默认 
 use_color_anno: {use_color_anno}  # 是否采用rds中注释的颜色信息,默认为"TRUE"
 color_file: {color_file}  # 输入以tab分隔的文件，第一列的列名为metadata列名，第一列为该列元素，第二列为对应的颜色
 palette: {palette}  # Get_colors.R 中的离散型色板名 默认"customecol2"
 cluster_n:  {cluster_n}  # CSI 聚类数目，第一次跑先设置4，出图后人工判断合适的聚类数，然后重新设置该参数再次运行命令
-analysis_type: {analysis_type}  # 这个不要改
+run: {analysis_type}  # 这个不要改
+# 所有 step1 结果可参考下方内容
+# {rst_all}
 """)

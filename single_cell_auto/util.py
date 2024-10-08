@@ -35,6 +35,7 @@ def show_guide():
         4.marker基因绘图
         5.singleR 注释细胞类型
         6.enrichment 富集分析
+        7.scenic Regulon 调控子分析
         {reset}
         """
             )

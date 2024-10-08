@@ -4,7 +4,7 @@ from single_cell_auto.cmd_module import *
 class Sub_Clusters(BaseClass):
     analysis_module = 'sub_clusters'
 
-    def whitelist(self,cell_name,species,tissue,seurat_sub,reduct2,cell_name_out):  # 白名单相关
+    def whitelist(self,cell_name,species,tissue,seurat_sub,reduct2,cell_name_out):  # 白名单相关 
         database = '/data/database/sc_subtype_refmarker/'
         whitelist_file = database + 'whitelist.xls'
         if cell_name == 'all':
