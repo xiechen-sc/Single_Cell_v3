@@ -270,10 +270,10 @@ def get_scenic(config_out):
     step1_outdir = './scenic_step1'
     step2_run = 'False'
     step2_input = 'rds/data_ob_v3.rds'
-    result_rds = 'int/3.4_regulonAUC.Rds'
+    result_dir = 'int/'
     rss_rank_top_gene = '3'
     groupby = 'new_celltype'
-    sub_col = 'False'
+    sub_seurat = 'False'
     seurat_sub_col = 'new_celltype'
     seurat_sub_col_value = '[]'
     use_color_anno = 'TRUE'
@@ -293,21 +293,22 @@ def get_scenic(config_out):
     with open(config_out_file,'w')as f:
         f.write(f"""
 step1_run: {step1_run}  # 是否执行第一步 生成 AUC 活性矩阵
-step1_input: {step1_input}  # 输入的 seurat 对象 可以是 rds 也可以是 h5seurat (自动转化 需要时间)
+step1_input: {step1_input}  # 输入的 seurat 对象 可以是 rds 也可以是 h5seurat (自动转化)
 species: {species}  # 只能是human或者mouse (各种参考基因组版本均可)
 coexMethod: {coexMethod}  # 计算调控子共表达的方法（可选：w0.001,w0.005,top50,top50perTarget,top10perTarget,top5perTarget）
 step1_outdir: {step1_outdir}  # 活性矩阵输出目录
 step2_run:  {step2_run}  # 是否执行 RAS CSI 
-step2_input:  {step2_input}
-result_rds: {result_rds}
-rss_rank_top_gene: {rss_rank_top_gene}
-groupby: {groupby}
-sub_col: {sub_col}
-seurat_sub_col: {seurat_sub_col}
-seurat_sub_col_value: {seurat_sub_col_value}
-use_color_anno: {use_color_anno}
-color_file: {color_file}
-palette: {palette}
-cluster_n:  {cluster_n}
-analysis_type: {analysis_type}
+step2_input:  {step2_input}  # step2 生成 ras csi 结果时 输入的 seurat 对象 可以是 rds 也可以是 h5seurat (自动转化)
+result_dir: {result_dir}  # step1 生成的结果文件目录
+rss_rank_top_gene: {rss_rank_top_gene}  # RSS rank 绘图结果中加标记的top基因数
+groupby: {groupby}  # 图片展示的组别信息
+sub_seurat: {sub_seurat}  # 是否对 seurat 对象取子集
+seurat_sub_col: {seurat_sub_col}  # 取子集的列名(metadata colnames)
+seurat_sub_col_value: {seurat_sub_col_value}  # 取子集的名称，列表内的列表为一次性取出多个， 列表内的字符串元素为分别取子集
+# 下方内容选择性填写 建议默认
+use_color_anno: {use_color_anno}  # 是否采用rds中注释的颜色信息,默认为"TRUE"
+color_file: {color_file}  # 输入以tab分隔的文件，第一列的列名为metadata列名，第一列为该列元素，第二列为对应的颜色
+palette: {palette}  # Get_colors.R 中的离散型色板名 默认"customecol2"
+cluster_n:  {cluster_n}  # CSI 聚类数目，第一次跑先设置4，出图后人工判断合适的聚类数，然后重新设置该参数再次运行命令
+analysis_type: {analysis_type}  # 这个不要改
 """)
