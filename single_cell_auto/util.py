@@ -13,7 +13,7 @@ def cell_name_normalization(cell_name):
     return new_name
 # 判断项目号
 def get_project_id(config_path):
-    pattern = r"D[^J].*OE.*\d+|HT\d+.*|ZO.*|DZQD.*"
+    pattern = r"D[^J].*OE.*\d+|HT\d+.*|ZO.*|DZQD.*|DOE.*"
     project_id = re.search(pattern,config_path)
     if not project_id:
         project_id = "No Match"
