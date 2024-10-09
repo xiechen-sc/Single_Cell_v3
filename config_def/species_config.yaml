@@ -96,4 +96,11 @@ sheep:
   Hallmakr: "unknown"
   
 
-   
+# 香港斑马鱼
+zebrafish_HK:
+  anno: /gpfs/oe-scrna/further_analysis/scRNA/10x/DZOE20230779114/20240517-20240524/ref/Drerio_genome
+  GO_BP: /gpfs/oe-scrna/zhaoyouwei/houxu/DZOE20230779114-Danio_rerio/1129_2/gs_merge.gmt
+  scenic: /data/database/SCENIC/human
+  singleR:
+    default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
+    pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
