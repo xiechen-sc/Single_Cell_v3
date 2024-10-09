@@ -67,12 +67,6 @@ class Scenic(BaseClass):
             cmd += cmd_csi
 
         return cmd
-            
-                
-
-
-        
-
 
     def get_script(self):
         step1_run = self.step1_run

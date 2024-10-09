@@ -267,7 +267,7 @@ def get_scenic(config_out):
     step1_input = 'rds/data_ob_v3.rds'
     species = 'mouse'
     coexMethod = 'top10perTarget'
-    step1_outdir = './scenic_step1'
+    step1_outdir = './'
     step2_run = 'False'
     step2_input = 'rds/data_ob_v3.rds'
     result_dir = 'scenic_step1/int/3.4_regulonAUC.Rds'
@@ -296,7 +296,7 @@ step1_run: {step1_run}  # 是否执行第一步 生成 AUC 活性矩阵
 step1_input: {step1_input}  # 输入的 seurat 对象 可以是 rds 也可以是 h5seurat (自动转化)
 species: {species}  # 只能是human或者mouse (各种参考基因组版本均可)
 coexMethod: {coexMethod}  # 计算调控子共表达的方法（可选：w0.001,w0.005,top50,top50perTarget,top10perTarget,top5perTarget）
-step1_outdir: {step1_outdir}  # 活性矩阵输出目录
+step1_outdir: {step1_outdir}  # 活性矩阵输出目录  这个建议别改 改了对脚本也无效
 step2_run:  {step2_run}  # 是否执行 RAS CSI 
 step2_input:  {step2_input}  # step2 生成 ras csi 结果时 输入的 seurat 对象 可以是 rds 也可以是 h5seurat (自动转化)
 result_dir: {result_dir}  # step1 生成的结果文件目录
