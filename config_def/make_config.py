@@ -314,3 +314,16 @@ run: {analysis_type}  # 这个不要改
 # 所有 step1 结果可参考下方内容
 # {rst_all}
 """)
+
+def get_decontX(config_out):
+    analysis_type = 'decontX'
+    input_seurat = 'seurat.h5seurat'
+    threshold = 'NULL'
+    config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type)
+
+    with open(config_out_file,'w')as f:
+        f.write(f"""
+input_seurat: {input_seurat}  # 输入的 seurat 对象文件 seurat 和 rds 都可以！
+threshold: {threshold}  # 污染率阈值 默认不删除，填写范围 0 - 1.0 ，将会删除高于此数值的细胞             
+run: {analysis_type}  # 这个不要改
+""")

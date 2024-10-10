@@ -31,6 +31,8 @@ def main():
             get_enrichment(config_out=config_out)
         elif analysis_module == '7':
             get_scenic(config_out=config_out)
+        elif analysis_module == '0':
+            get_decontX(config_out=config_out)
         else:
             print(f'{analysis_module} :error! No or to be developed')
 
