@@ -29,12 +29,12 @@ class Scenic(BaseClass):
             elif type(s_v) == list:
                 predicate = "\'" + "\',\'".join(s_v) + "\'"
                 outname = '_'.join(s_v)
-                cmd_predicate = f'--predicate "{seurat_sub_col} %in% c({predicate})'
+                cmd_predicate = f'--predicate "{seurat_sub_col} %in% c({predicate})"'
                 out_dir = f'scenic_ras_rss_{seurat_sub_col}_{outname}_by_{groupby}'
                 out_dir_csi = f'scenic_csi_{seurat_sub_col}_{outname}_by_{groupby}'
             else:
                 predicate = '\'' + s_v + '\''
-                cmd_predicate = f'--predicate "{seurat_sub_col} %in% c({predicate})'
+                cmd_predicate = f'--predicate "{seurat_sub_col} %in% c({predicate})"'
                 out_dir = f'scenic_ras_rss_{seurat_sub_col}_{s_v}_by_{groupby}'
                 out_dir_csi = f'scenic_csi_{seurat_sub_col}_{s_v}_by_{groupby}'
             cmd_ras_rss = ''

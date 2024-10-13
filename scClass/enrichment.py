@@ -88,5 +88,7 @@ class Enrichment(BaseClass):
             with open(out_script,"w") as f:
                 f.write(cmd)
             #### 物种信息保存至数据库
-            database_add(config_path=out_script,config_info={'species':species})
+            db_update_bg = self.pjif  
+            db_update_bg['species'] = species
+            self.update_info_bag = db_update_bg
             print(f"脚本 {out_script} 已生成")

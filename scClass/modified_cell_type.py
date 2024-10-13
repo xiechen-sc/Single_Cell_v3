@@ -156,3 +156,6 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool annotation \\
 """)
 
         print(f"脚本 {out_script} 已生成")
+        db_update_bg = self.pjif  
+        db_update_bg['species'] = species
+        self.update_info_bag = db_update_bg

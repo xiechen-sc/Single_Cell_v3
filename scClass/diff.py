@@ -132,6 +132,8 @@ rm ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}
                         f.write(cmd)
                     print(f"脚本 {out_script} 已生成")
             #### 物种信息保存至数据库
-            database_add(config_path=out_script,config_info={'species':species})
+            db_update_bg = self.pjif  
+            db_update_bg['species'] = species
+            self.update_info_bag = db_update_bg
                     
 
