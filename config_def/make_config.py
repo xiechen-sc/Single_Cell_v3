@@ -329,3 +329,7 @@ threshold: {threshold}  # 污染率阈值 默认不删除，填写范围 0 - 1.0
 reduct: {reduct}   # 污染可视化，可选用 pca tsne umap ，必须是执行过上述降维后才能使用！   
 run: {analysis_type}  # 这个不要改
 """)
+
+# 施淼开发
+def get_monocle2(config_out):
+    pass

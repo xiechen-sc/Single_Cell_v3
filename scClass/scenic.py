@@ -56,7 +56,7 @@ class Scenic(BaseClass):
                 cmd_ras_rss += self.add_cmd_row(cmd_predicate)
                 cmd_csi += self.add_cmd_row(cmd_predicate)
             if self.use_color_anno:
-                cmd_ras_rss += self.add_cmd_row(f'--use_color_anno {self.use_color_anno}')
+                cmd_ras_rss += self.add_cmd_row(f'--use_color_anno TRUE')
             if self.color_file:
                 cmd_ras_rss += self.add_cmd_row(f'--color_file {self.color_file}')
             if self.palette:
