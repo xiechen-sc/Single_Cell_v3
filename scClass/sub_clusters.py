@@ -136,10 +136,12 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
             anno = species_info['anno'] 
         except KeyError:
             anno = '# 请手动填写！！！'
+            anno_dir = anno
             jinggao(f'{species} 的 anno 在数据库中不存在 请手动填写！')
             get_anno = False
         except TypeError:
             anno = '# 请手动填写！！！'
+            anno_dir = anno
             jinggao(f'{species} 在数据库中不存在 请手动填写！')
             get_anno = False
         else:
