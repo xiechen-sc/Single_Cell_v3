@@ -17,7 +17,7 @@ human:
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/h.all.v2023.1.Hs.symbols.gmt
   scenic: /data/database/SCENIC/human
   singleR:
-    default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
+    default: /data/database/celltype_refdata/Human/logNorm_rds/hpca.rds
     pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
 
 
@@ -29,7 +29,7 @@ human_2020:
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/h.all.v2023.1.Hs.symbols.gmt
   scenic: /data/database/SCENIC/human
   singleR:
-    default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
+    default: /data/database/celltype_refdata/Human/logNorm_rds/hpca.rds
     pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
 
 # 人 2024
@@ -40,7 +40,7 @@ human_2024:
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/h.all.v2023.1.Hs.symbols.gmt
   scenic: /data/database/SCENIC/human
   singleR:
-    default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
+    default: /data/database/celltype_refdata/Human/logNorm_rds/hpca.rds
     pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
 
 # 小鼠  默认 2020
@@ -51,7 +51,7 @@ mouse:
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
   scenic: /data/database/SCENIC/mouse
   singleR:
-    default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+    default: /data/database/celltype_refdata/Mouse/logNorm_rds/immgen.rds
 # 小鼠 2020
 mouse_2020:
   anno: /data/database/cellranger-refdata/refdata-gex-mm10-2020-A/
@@ -60,7 +60,7 @@ mouse_2020:
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
   scenic: /data/database/SCENIC/mouse
   singleR:
-    default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+    default: /data/database/celltype_refdata/Mouse/logNorm_rds/immgen.rds
 
 # 小鼠 2024
 mouse_2024:
@@ -70,7 +70,7 @@ mouse_2024:
   Hallmakr: /gpfs/oe-scrna/zhengfuxing/Publc/mh.all.v2023.1.Mm.symbols.gmt
   scenic: /data/database/SCENIC/mouse
   singleR:
-    default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+    default: /data/database/celltype_refdata/Mouse/logNorm_rds/immgen.rds
 
 # 大鼠
 rat:
@@ -79,7 +79,7 @@ rat:
   GO_BP: /data/database/GSEA_gmt/rat/gene_go_bp.backgroud.gmt
   Hallmakr: "unknown"
   singleR:
-    default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+    default: /data/database/celltype_refdata/Mouse/logNorm_rds/immgen.rds
 # 大鼠 v6
 rat_v6:
   anno: "/data/database/cellranger-refdata/refdata-cellranger-Rnor_6.0/"
@@ -87,7 +87,7 @@ rat_v6:
   GO_BP: /data/database/GSEA_gmt/rat/gene_go_bp.backgroud.gmt
   Hallmakr: "unknown"
   singleR:
-    default: /data/database/celltype_refdata/logNorm_rds/immgen.rds
+    default: /data/database/celltype_refdata/Mouse/logNorm_rds/immgen.rds
 
 sheep:
   anno: "/data/database/cellranger-refdata/refdata-ARS-UI_Ramb_v2.0/"

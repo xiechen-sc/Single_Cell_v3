@@ -9,7 +9,11 @@ class Enrichment(BaseClass):
             df = pd.read_csv(input,sep='\t')
             cell_type = df.columns.to_list()[6]
             print(f'正在对 {input} 执行提取 top {top_n} 处理 请等待！')
-            df_sorted = df.reindex(df[sort_by].abs().sort_values().index)  # 根据 绝对值大小进行排序
+            if sort_by == 'avg_log2FC' or sort_by == 'gene_diff':
+                bl = False
+            else:
+                bl = True
+            df_sorted = df.reindex(df[sort_by].abs().sort_values(ascending=bl).index)  # 根据 绝对值大小进行排序
             df_top_n = df_sorted.groupby(cell_type).head(top_n)
             ipt = outdir + f'/{prefix}_all_clusters_marker_top_{top_n}.xls'
             df_top_n.to_csv(ipt, index=False,sep='\t')

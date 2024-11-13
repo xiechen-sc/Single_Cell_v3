@@ -357,9 +357,10 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
             with open(out_script,"w") as f:
                 f.write(cmd)
             print(f"脚本 {out_script} 已生成") 
-        #### 物种信息保存至数据库
+        #### 物种信息保存至数据库 
         db_update_bg = self.pjif  
         db_update_bg['species'] = species
+        db_update_bg['tissue'] = tissue
         self.update_info_bag = db_update_bg
         
             

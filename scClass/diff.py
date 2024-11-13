@@ -95,6 +95,8 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/scVis \\
 """                 
                     if cell_type != 'all':
                         cmd += f"""--predicate "{analysis_type} %in% c({sub_list}) & {vs_type} %in% c(\\'{treat}\\',\\'{control}\\')" \\\n"""
+                    else:
+                        cmd += f"""--predicate "{vs_type} %in% c(\\'{treat}\\',\\'{control}\\')" \\\n"""
                     cmd += f"""diff_heatmap \\
 -d ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-diff-pval-{p}-FC-{fc}.xls \\
 -n {top} \\

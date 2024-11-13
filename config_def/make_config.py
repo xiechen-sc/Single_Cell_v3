@@ -253,7 +253,7 @@ def get_enrichment(config_out):
 # 4:针对monocle产出module_anno基因列表进行module拆分并富集  pseudotime_heatmap_gene_module_anno.xls
 analysis_model: {analysis_model}  # 见上4行注释 必须与input 的 列表元素长度保持一致！ 或者只填写 一种 model
 top_n: {top_n}  # 当分析模式为 1 时生效 提供 差异目录结果下的 该文件 SPOCD1_high-vs-low-all_diffexp_genes_anno.xls 每个clusters 取top n个marker基因
-sort_by: {sort_by}  # 当分析模式为 1 时生效 提供的 input 文件需要基于哪一列排序 默认 'p-value' 可选 'avg_log2FC' 'q-value' 
+sort_by: {sort_by}  # 当分析模式为 1 时生效 提供的 input 文件需要基于哪一列排序 默认 'p-value' 可选 'avg_log2FC' 'q-value' 'gene_diff'
 input: {input}  # 输入的 input 文件 可一次输入多种 input  输入可见上方四行注释 可一次填写多个
 species: {species} # 物种信息
 prefix_lst: {prefix_lst}  # 生成目录前缀，若不填写 则按照input 顺序 写入 0 1 2 3 4......
