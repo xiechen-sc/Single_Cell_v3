@@ -191,7 +191,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
             if reduct1 == 'mnn':
                 cmd += f"\n--batchid {batchid} \\\n--components 10  \\"
             elif reduct1 == "pca,harmony":
-                cmd += f"\n--batchid {batchid} \\\n-t 20 \\\n-y 30 \\"
+                cmd += f"\n--batchid {batchid} \\\n-t 30 \\\n-y 30 \\"
             elif reduct1 == 'pca':
                 pass
             else:
