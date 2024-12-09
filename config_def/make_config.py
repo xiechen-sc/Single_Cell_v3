@@ -237,7 +237,7 @@ def get_enrichment(config_out):
     prefix_lst = '[]'
     analysis_model = "[0]"
     top_n = '50' 
-    sort_by = 'p-value'
+    sort_by = 'gene_diff'
     # 数据库交互
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
