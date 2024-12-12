@@ -104,14 +104,3 @@ zebrafish_HK:
   singleR:
     default: /gpfs/oe-database/celltype_refdata/logNorm_rds/hpca.rds
     pbmc: /data/database/celltype_refdata/logNorm_rds/blueprint_encode.rds
-
-#猪
-pig:
-   anno: /data/database/cellranger-refdata/refdata-Sus_scrofa/
-# 牛
-cow:
-  anno: /gpfs/oe-database/cellranger-refdata/refdata-Bos_taurus_old/
-
-#小鼠 mobivision
-mouse_mobi: 
-  anno: /data/database/mobivision-refdata/mobivision-mm10-2020-A/
