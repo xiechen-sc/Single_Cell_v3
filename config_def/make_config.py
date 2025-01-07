@@ -330,6 +330,81 @@ reduct: {reduct}   # 污染可视化，可选用 pca tsne umap ，必须是执�
 run: {analysis_type}  # 这个不要改
 """)
 
-# 施淼开发
 def get_monocle2(config_out):
-    pass
+    analysis_type = 'monocle2'
+    monocle_run = 'FALSE'
+    input_seurat = 'seurat.h5seurat'
+    assay = 'RNA'
+    col_name = 'clusters'
+    step1_groupby = 'clusters,sampleid,group'
+    sub_seurat = 'False'
+    sub_col = 'clusters'
+    sub_lst = '1,2,3,4,5'
+    output_dir = './monocle2'
+    result_rds = 'NULL'
+    monocle_rds = 'NULL'
+    resolution = '0.4'
+    downsample = '30000'
+    use_color_anno = 'TRUE'
+    color_file = ''
+    palette = ''
+    cores_use = '8'
+    pointsize = '1'
+    step2_downstream_run = 'FALSE'
+    genelist = 'ordering'
+    species = 'human'
+    root_state = '1'
+    show_branch = 'FALSE'
+    branch = 'NULL'
+    vis_methods = 'all'
+    step2_groupby = 'clusters'
+    module_expressplot = 'NULL'
+    module_enrichment = 'FALSE'
+    topn = '25'
+    toptype = 'both'
+    module_num = '4'
+    express_colnum = '2'
+
+    # 数据库交互
+    project_info = database_retrieval(config_path=config_out)
+    if 'species' in project_info :
+        species = project_info['species'] # 更新物种信息 
+
+    config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type)
+    with open(config_out_file,'w')as f:
+        f.write(f"""
+step1_monocle_run: {monocle_run} # 是否执行第一步基础分析
+input_seurat: {input_seurat} #输入的 seurat 对象 可以是 rds 也可以是 h5seurat (自动转化)
+col_name: {col_name} # 以哪一列筛选高变基因
+step1_groupby: {step1_groupby} # 用于作图的分组变量,如clusters,sampleid,group,new_celltype（“State”会默认出图,无需在此填写）
+sub_seurat: {sub_seurat} # 是否对输入的seurat对象筛选子集
+sub_col: {sub_col} # seurat对象metadata里的分组列名,用于截取seurat的一部分进行分析,如celltype 、clusters、sampleid等
+sub_lst: {sub_lst} # 需要截取的分组变量,如有多个可用,分隔
+result_rds: {result_rds} # 输入已生成的pseudotime_results.rds, 重新绘图
+
+step2_downstream_run: {step2_downstream_run} # 是否执行monocle下游分析
+monocle_rds: {monocle_rds} # 输入已生成的pseudotime_results.rds
+species: {species} # 只能是human或者mouse
+genelist: {genelist} # 输入基因列表（带表头,表头可随意命名）;或差异基因表格 Diffexp/-vs-.xls;或 ordering:直接对ordering gene作图
+root_state: {root_state} # 指定拟时间轨迹起点
+show_branch: {show_branch} # 拟时间轨迹图是否展示分支节点。若需要绘制分支热图,可通过此参数查看分支节点。
+branch: {branch} # 指定分支节点branchpoint
+vis_methods: {vis_methods} # 作图展示形式:heatmap, expressplot, trajectoryplot, treeplot,module, expressplot_line,ridgeplot ,bin, all为全部展示形式都做,module 是按照 module 绘制动力学趋势图;expressplot_line 为基因的分组别动力学趋势图;
+step2_groupby: {step2_groupby} # [expressplot、treeplot、expressplot_line、ridgeplot 参数] 作图的分组变量,默认为clusters;当单独绘制山峦图时,可以用逗号分隔多种分组。
+module_expressplot: {module_expressplot} # 输入pseudotime_heatmap_gene_module_anno.xls,出具module expressplot,无需和heatmap绑定
+module_enrichment: {module_enrichment} #是否进行module基因富集分析
+# 下方内容选择性填写 建议默认 
+output_dir: {output_dir} # 结果输出目录
+assay: {assay} # RNA OR SCT
+resolution: {resolution} # 
+downsample: {downsample} # 降采样,默认降至30000细胞
+cores_use: {cores_use} # 线程数
+topn: {topn} # genelist输入的是差异基因表格,指定对差异显著的前n个基因作图,默认top25
+toptype: {toptype}  # genelist输入的是差异基因表格,指定对上调、下调或上下调基因作图。默认为both
+module_num: {module_num} # heatmap module 数量 默认为4
+express_colnum: {express_colnum} # 【expressplot参数】 图片展示的列数,默认展示2列
+use_color_anno: {use_color_anno}  # 是否采用rds中注释的颜色信息,默认为"TRUE"
+color_file: {color_file}  # 输入以tab分隔的文件,第一列的列名为metadata列名,第一列为该列元素,第二列为对应的颜色
+palette: {palette}  # Get_colors.R 中的离散型色板名 默认"customecol2"
+run: {analysis_type}  # 这个不要改
+        """)

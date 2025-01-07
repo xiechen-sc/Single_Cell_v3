@@ -6,3 +6,4 @@ from .singleR import SingleR
 from .enrichment import Enrichment
 from .scenic import Scenic
 from. decontX import DecontX
+from .monocle2 import Monocle2
