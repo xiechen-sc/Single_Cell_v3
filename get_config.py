@@ -33,6 +33,8 @@ def main():
             get_scenic(config_out=config_out)
         elif analysis_module == '0':
             get_decontX(config_out=config_out)
+        elif analysis_module == '8':
+            get_monocle2(config_out=config_out)
         else:
             print(f'{analysis_module} :error! No or to be developed')
 
