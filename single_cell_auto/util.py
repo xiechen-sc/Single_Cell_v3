@@ -37,6 +37,7 @@ def show_guide():
         5.singleR 注释细胞类型
         6.enrichment 富集分析
         7.scenic Regulon 调控子分析
+        8.monocle2拟时序分析
         {reset}
         """
             )
