@@ -56,7 +56,7 @@ class Monocle2(BaseClass):
         cmd += self.add_cmd_row(f'/public/scRNA_works/pipeline/scRNA-seq_further_analysis/enrichwrap.sh')
         cmd += self.add_cmd_row(f'-i {output}/pseudotime_heatmap_gene_module_anno.xls')
         cmd += self.add_cmd_row(f'-g {anno}')
-        cmd += self.add_cmd_row(f'-g {output}/enrich')
+        cmd += self.add_cmd_row(f'-o {output}/enrich')
         cmd += self.add_cmd_row(f'-p TRUE -n 2',end=True)
         return cmd
 
