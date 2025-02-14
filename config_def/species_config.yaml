@@ -94,6 +94,12 @@ sheep:
   KEGG: /gpfs/oe-scrna/further_analysis/scRNA/10x/DZOE2023081524/Ovis_aries/kegg.gmt
   GO_BP: /gpfs/oe-scrna/further_analysis/scRNA/10x/DZOE2023081524/Ovis_aries/go.gmt
   Hallmakr: "unknown"
+
+sheep2:
+  anno: "/gpfs/oe-database/cellranger-refdata/refdata-Oar_v4.0/"
+  KEGG: "unknown"
+  GO_BP: "unknown"
+  Hallmakr: "unknown" 
   
 
 # 香港斑马鱼
@@ -115,3 +121,12 @@ cow:
 #小鼠 mobivision
 mouse_mobi: 
   anno: /data/database/mobivision-refdata/mobivision-mm10-2020-A/
+
+
+#乌头
+wutou:
+  anno: /data/database/mobivision-refdata/wuto_gencode_v3/
+
+#山葡萄
+shanputao:
+  anno: /gpfs/oe-scrna/lishuai/genome_prepare/shanputao/Vitis_amurensis/
