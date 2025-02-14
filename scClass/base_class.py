@@ -78,5 +78,6 @@ class BaseClass:
         config_path = self.outdir
         project_id = get_project_id(config_path)
         data_base_file = get_database_path(config_path=config_path,project_id=project_id)
+        # print(self.pjif)
         save_dict_to_yaml(data_base_file=data_base_file, project_info=self.pjif)
         

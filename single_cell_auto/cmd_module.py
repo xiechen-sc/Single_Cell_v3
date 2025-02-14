@@ -1,4 +1,4 @@
-from single_cell_auto.util import jinggao
+from single_cell_auto.util import jinggao,get_species_info
 # singleR 注释
 def cmd_singleR(seurat,output,assay,singleR_rds,reduct2,species,annolevel):
     cmd = f"""set -e
@@ -58,9 +58,10 @@ def cmd_addmodulescore(self):
     strict = self.strict  # 是否使用严格模式筛选gene，默认FALSE
     assay = self.assay
     pointsize = self.pointsize
+    species_info = get_species_info(species=species)
 
     try:
-        anno = self.pjif['species']
+        anno = species_info['anno']
     except KeyError:
         anno = '# 请手动填写！！！'
         jinggao(f'{species} 的 anno 在数据库中不存在 请手动填写！')
