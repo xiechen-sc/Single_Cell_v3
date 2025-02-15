@@ -38,7 +38,7 @@ def show_guide():
         6.enrichment 富集分析
         7.scenic Regulon 调控子分析
         8.monocle2拟时序分析
-        9.admodulescore (新版 sctool)
+        9.addmodulescore (新版 sctool)
         {reset}
         """
             )

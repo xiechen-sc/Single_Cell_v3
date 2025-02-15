@@ -425,6 +425,8 @@ def get_addmodulescore(config_out):
     analysis_type = 'addmodulescore'
     pointsize = '0.5'
     show_box = 'TRUE'
+    sub = None
+    select = []
     # 数据库交互
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
@@ -440,6 +442,8 @@ splitby: {splitby}  # 拆分展示小提琴图
 fsplitby: {fsplitby}  # 拆分展示umap图
 pvalue: {pvalue}  # 添加显著性 all:all 
 # 下方内容选择性填写 建议默认 
+sub: {sub} # 根据 meta.data 某一列取子集 None 为不取
+select: {select}  # 取哪些元素 ['a','b'为] 分别取 a b;[['a','b']] 为一次性取出 a b
 reduct: {reduct} # 降维方式 
 output: {output}  # 输出目录
 show_box: {show_box}  # 小提琴图中是否添加箱图，默认为TRUE
