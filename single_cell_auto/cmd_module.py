@@ -1,3 +1,4 @@
+from single_cell_auto.util import jinggao,get_species_info
 # singleR 注释
 def cmd_singleR(seurat,output,assay,singleR_rds,reduct2,species,annolevel):
     cmd = f"""set -e
@@ -35,3 +36,7 @@ Rscript /gpfs/oe-scrna/pipeline/scRNA-seq_further_analysis/volcanoplot/volcano.r
 -o {output}
 """
     return cmd
+
+
+    
+    

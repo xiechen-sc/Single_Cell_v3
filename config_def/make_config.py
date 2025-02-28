@@ -408,3 +408,49 @@ color_file: {color_file}  # 输入以tab分隔的文件,第一列的列名为met
 palette: {palette}  # Get_colors.R 中的离散型色板名 默认"customecol2"
 run: {analysis_type}  # 这个不要改
         """)
+
+def get_addmodulescore(config_out):
+    input  = 'seurat.h5seurat'
+    output  = "addmodulescore"
+    reduct  = 'umap'
+    assay  = "RNA"
+    dataslot  = 'counts,data,scale.data' 
+    species = 'mouse'
+    genelist = 'genelist.txt'
+    groupby = 'clusters'
+    splitby = 'None'
+    fsplitby = 'None'
+    pvalue = 'None'
+    strict = 'F'
+    analysis_type = 'addmodulescore'
+    pointsize = '0.5'
+    show_box = 'TRUE'
+    sub = None
+    select = []
+    # 数据库交互
+    project_info = database_retrieval(config_path=config_out)
+    if 'species' in project_info :
+        species = project_info['species'] # 更新物种信息 
+
+    config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type)
+    with open(config_out_file,'w')as f:
+        f.write(f"""input: {input}  # 输入 seurat 对象文件
+species: {species}  # 物种
+genelist: {genelist}  # 输入genelist 列表
+groupby: {groupby}  # 分组方式
+splitby: {splitby}  # 拆分展示小提琴图
+fsplitby: {fsplitby}  # 拆分展示umap图
+pvalue: {pvalue}  # 添加显著性 all:all 
+# 下方内容选择性填写 建议默认 
+sub: {sub} # 根据 meta.data 某一列取子集 None 为不取
+select: {select}  # 取哪些元素 ['a','b'为] 分别取 a b;[['a','b']] 为一次性取出 a b
+reduct: {reduct} # 降维方式 
+output: {output}  # 输出目录
+show_box: {show_box}  # 小提琴图中是否添加箱图，默认为TRUE
+assay: {reduct}  # RNA  SCT
+dataslot: {dataslot}  # counts,data,scale.data
+strict: {strict}  # 是否使用严格模式筛选gene，默认FALSE
+assay: {assay}
+pointsize: {pointsize}  # 点的大小 
+run: {analysis_type} # 这个不要改！
+""")   

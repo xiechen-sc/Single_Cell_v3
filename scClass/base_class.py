@@ -1,4 +1,5 @@
 from single_cell_auto import *
+import re,ast
 # 定义一个父类 保存公共数据
 class BaseClass:
 
@@ -78,5 +79,26 @@ class BaseClass:
         config_path = self.outdir
         project_id = get_project_id(config_path)
         data_base_file = get_database_path(config_path=config_path,project_id=project_id)
+        # print(self.pjif)
         save_dict_to_yaml(data_base_file=data_base_file, project_info=self.pjif)
+
+    # 为输入的字符串列表添加引号！ 并将字符串转化为列表后返回
+    def quotation_mark(self,raw_str):
+        mid_str = raw_str.replace('\"','').replace("\'",'')
+        new_str = re.sub(r'([^,\[\]]+)',r'"\1"',mid_str)
+        lst = ast.literal_eval(new_str)
+        lst2 = self.get_select(lst)
+        return lst2
+
+
+    def get_select(self,ipt):
+        if isinstance(ipt, list):
+            lst2 = []
+            for i in ipt:
+                ret = self.get_select(i)
+                lst2.append(ret)
+            return lst2
+        else:
+            ret = re.sub(r'\s+$|^\s+','',ipt) 
+            return(ret)
         
