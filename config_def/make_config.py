@@ -80,6 +80,8 @@ def get_sub_clusters(config_out):
     col_name = 'new_celltype'
     cells = ["T_cells","all",["T_cells","NK"]]
     singleR_rds = 'default'
+    custom_ref = "None"
+    white_celltypes = "None"
     assay = 'RNA'
     rerun = 'T'
     extraGene = 'None'
@@ -93,6 +95,8 @@ def get_sub_clusters(config_out):
         species = project_info['species'] # 更新物种信息
     if 'tissue' in project_info:
         tissue = project_info['tissue']
+    if 'custom_ref' in project_info:
+        custom_ref = project_info['custom_ref']
 
     config_out_file = mkdir(config_out,analysis_type)
     f = open(config_out_file, 'w')
@@ -109,7 +113,9 @@ extraGene: {extraGene}  # 额外输入的 marker 基因可视化列表 genelist.
 # 下方内容选择性填写！！！
 celltyping: {celltyping}  # 默认不再提供 singleR结果！
 delete_special: {delete_special}  # 是否在高变基因中去除列表中的线粒体、热休克、核糖体、解离相关、lncRNA、TR_V_gene和血红蛋白基因（默认去除，仅人小鼠有效）
+white_celltypes: {white_celltypes} # 手动指定用哪个细胞类型的经典marker出基因可视化结果,需和上面筛选细胞群一一对应 输入形式为列表，参考：['Macrophages', 'T_cell']
 tissue: {tissue} # brain(脑)、Intestinal(肠)、lung(肺)、gastric(胃癌)、tumour(肿瘤). 非必须
+custom_ref: {custom_ref}  # 自行指定参考基因组
 singleR_rds: {singleR_rds}  #  自动注释参考数据集 如果需要手动指定 请使用绝对路径
 annolevel: {annolevel}  # singleR 注释水平  single  main
 assay: {assay} # 有时候会用 SCT
@@ -360,10 +366,6 @@ def get_monocle2(config_out):
     step2_groupby = 'clusters'
     module_expressplot = 'NULL'
     module_enrichment = 'FALSE'
-    topn = '25'
-    toptype = 'both'
-    module_num = '4'
-    express_colnum = '2'
 
     # 数据库交互
     project_info = database_retrieval(config_path=config_out)
@@ -399,10 +401,6 @@ assay: {assay} # RNA OR SCT
 resolution: {resolution} # 
 downsample: {downsample} # 降采样,默认降至30000细胞
 cores_use: {cores_use} # 线程数
-topn: {topn} # genelist输入的是差异基因表格,指定对差异显著的前n个基因作图,默认top25
-toptype: {toptype}  # genelist输入的是差异基因表格,指定对上调、下调或上下调基因作图。默认为both
-module_num: {module_num} # heatmap module 数量 默认为4
-express_colnum: {express_colnum} # 【expressplot参数】 图片展示的列数,默认展示2列
 use_color_anno: {use_color_anno}  # 是否采用rds中注释的颜色信息,默认为"TRUE"
 color_file: {color_file}  # 输入以tab分隔的文件,第一列的列名为metadata列名,第一列为该列元素,第二列为对应的颜色
 palette: {palette}  # Get_colors.R 中的离散型色板名 默认"customecol2"
