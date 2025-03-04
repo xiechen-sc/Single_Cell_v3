@@ -74,7 +74,7 @@ class Sub_Clusters(BaseClass):
             if reduct1 == 'harmony':
                 reduct1 = "pca,harmony"
             cmd = "set -e\nmodule purge && module load OESingleCell/3.0.d\n"
-            cmd += self.add_cmd_row(f'Rscript /gpfs/oe-scrna/guokaiqi/test/subclusters/new_sctool/Subtype.R')
+            cmd += self.add_cmd_row(f'Rscript /gpfs/oe-scrna/pipeline/scRNA-seq_further_analysis/Subtype_new_sctool.R')
             cmd += self.add_cmd_row(f'-i {seurat}')
             cmd += self.add_cmd_row(f'--assay {assay}')
             if cell_name != 'all':
