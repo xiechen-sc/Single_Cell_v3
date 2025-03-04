@@ -6,7 +6,7 @@ class Monocle2(BaseClass):
 
     def get_step1_cmd(self,input_rds,assay,col_name,sub_seurat,sub_col,sub_lst,step1_groupby,output,cores_use,resolution,result_rds):
         cmd = '### run monocle2 ###\n'
-        cmd += self.add_cmd_row(f'/home/luyao/10X_scRNAseq_v3/src/Pseuduotime/monocle.R')
+        cmd += self.add_cmd_row(f'Rscript /home/luyao/10X_scRNAseq_v3/src/Pseuduotime/monocle.R')
         cmd += self.add_cmd_row(f'-i {input_rds}')
         cmd += self.add_cmd_row(f'-f seurat')
         cmd += self.add_cmd_row(f'--assay {assay}')
