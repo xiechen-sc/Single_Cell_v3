@@ -125,7 +125,59 @@ run: {analysis_type} # 这个不要修改
     f.close()
 
     print(f'config.yaml 文件已生成至 {config_out_file}')
+# 亚群分析系列 old
+def get_sub_clusters_old(config_out):
+    # 默认变量
+    analysis_type2 = 'sub_clusters'
+    analysis_type = 'sub_clusters_old'
+    seurat = 'seurat.h5seurat'
+    species = 'mouse'
+    reduct1 = 'pca'
+    reduct2 = 'umap'
+    batchid = 'batchid'
+    resolution = '0.4'
+    col_name = 'new_celltype'
+    cells = ["T_cells","all",["T_cells","NK"]]
+    singleR_rds = 'default'
+    assay = 'RNA'
+    rerun = 'T'
+    extraGene = 'None'
+    tissue = 'None'
+    celltyping = 'False'
+    annolevel = 'single'
+    delete_special = 'True'
+    # 根据数据库进行修改
+    project_info = database_retrieval(config_path=config_out)
+    if 'species' in project_info :
+        species = project_info['species'] # 更新物种信息
+    if 'tissue' in project_info:
+        tissue = project_info['tissue']
 
+    config_out_file = mkdir(config_out,analysis_type2)
+    f = open(config_out_file, 'w')
+    f.write(f"""
+seurat: {seurat}  # 输入用于降维的 seurat
+species: {species} # 物种
+reduct1: {reduct1}  # mnn harmony pca
+reduct2: {reduct2} # umap tsne
+batchid: {batchid}  # 去批次采用哪一列  部分老师要求使用 sampleid
+resolution: {resolution} # 分辨率 T 细胞设置为 0.6, 0.8
+col_name: {col_name}  # 根据哪一列选择细胞做亚群分析 如果填写 all 则用所有细胞重新做亚群分析 具体参考下一行
+cells: {cells}  # 哪些细胞类型需要做降维 如果需要将两种细胞放在一起降维 可以写成 [["T_cells","NK"],"B_cells"],这样表示将 "T_cells","NK" 两个合在一起降维 ，并对B细胞单独降维
+extraGene: {extraGene}  # 额外输入的 marker 基因可视化列表 genelist.txt 若为 None 则不进行核外的 marker 可视化
+# 下方内容选择性填写！！！
+celltyping: {celltyping}  # 默认不再提供 singleR结果！
+delete_special: {delete_special}  # 是否在高变基因中去除列表中的线粒体、热休克、核糖体、解离相关、lncRNA、TR_V_gene和血红蛋白基因（默认去除，仅人小鼠有效）
+tissue: {tissue} # brain(脑)、Intestinal(肠)、lung(肺)、gastric(胃癌)、tumour(肿瘤). 非必须
+singleR_rds: {singleR_rds}  #  自动注释参考数据集 如果需要手动指定 请使用绝对路径
+annolevel: {annolevel}  # singleR 注释水平  single  main
+assay: {assay} # 有时候会用 SCT
+rerun: {rerun} # 默认重新寻找高边基因进行聚类
+run: {analysis_type} # 这个不要修改
+    """)
+    f.close()
+
+    print(f'config.yaml 文件已生成至 {config_out_file}')
 # 修改细胞类型
 def get_modified_cell_type(config_out):
     # 默认变量
