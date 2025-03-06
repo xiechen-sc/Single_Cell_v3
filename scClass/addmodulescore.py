@@ -49,11 +49,11 @@ class Addmodulescore(BaseClass):
         -g {groupby} \\
             """
                 if not (splitby == 'None'):
-                    cmd += f'    	--splitby {splitby} \\\n'
+                    cmd += f'    --splitby {splitby} \\\n'
                 if not (fsplitby == 'None'):
-                    cmd += f'    	--fsplitby {fsplitby} \\\n'
+                    cmd += f'    --fsplitby {fsplitby} \\\n'
                 if show_box:
-                    cmd += f'    	--show_box {show_box} \\\n'
+                    cmd += f'    --show_box {show_box} \\\n'
                 if not (strict == 'None'):
                     cmd += f'    	--strict {strict} \\\n'
                 if not (pvalue == 'None'):
