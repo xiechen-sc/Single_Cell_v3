@@ -3,6 +3,12 @@ from single_cell_auto import *
 from config_def import *
 import sys
 import os
+def is_number(s):
+    try:
+        float(s)  # 尝试转换为浮点数
+        return True
+    except ValueError:
+        return False
 def main():
     config_out = os.getcwd()
     if len(sys.argv) == 1: # 没有参数传入
@@ -16,7 +22,8 @@ def main():
     for analysis_module in analysis_modules:
         # 检查内部元素是否只包含 数字和 逗号
         if not analysis_module.isdigit():
-            show_help(analysis_module=analysis_module)
+            if not is_number(analysis_module):
+                show_help(analysis_module=analysis_module)
         if analysis_module == '4':
             get_featureplot(config_out=config_out)
         elif analysis_module == '1':
@@ -24,6 +31,8 @@ def main():
         elif analysis_module == '3':
             get_diff_enrich(config_out=config_out)
         elif analysis_module == '2':
+            get_sub_clusters_old(config_out=config_out)
+        elif analysis_module == '2.5':
             get_sub_clusters(config_out=config_out)
         elif analysis_module == '5':
             get_singleR(config_out=config_out)

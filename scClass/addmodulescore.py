@@ -16,7 +16,7 @@ class Addmodulescore(BaseClass):
             sub = self.sub
             
             # 下方内容选择性填写 建议默认 
-            show_box = self.pvalue
+            show_box = self.show_box
             reduct = self.reduct # 降维方式 
             output = self.output  # 输出目录
             assay = self.reduct  # RNA  SCT
@@ -47,7 +47,7 @@ class Addmodulescore(BaseClass):
     sc_addmodulescore  \\
         -x {genelist} \\
         -g {groupby} \\
-            """
+"""
                 if not (splitby == 'None'):
                     cmd += f'    	--splitby {splitby} \\\n'
                 if not (fsplitby == 'None'):
