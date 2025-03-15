@@ -46,6 +46,8 @@ def main():
             get_monocle2(config_out=config_out)
         elif analysis_module == '9':
             get_addmodulescore(config_out=config_out)
+        elif analysis_module == '10':
+            get_cellchat(config_out=config_out)
         else:
             print(f'{analysis_module} :error! No or to be developed')
 
