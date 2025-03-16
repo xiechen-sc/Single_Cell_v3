@@ -21,8 +21,17 @@ class Cellchat(BaseClass):
             cellchatdb = self.cellchatdb  # cellchatdb
             # input 处理
             add_cmd,input = self.judgment_seurat_rds(input) # 这里返回 转化命令与新的 rds 路径
-
-            if version == 'cellchat V2':
+            # 简单处理物种
+            if 'human' in species:
+                species = 'human'
+            elif 'mouse' in species:
+                species = 'mouse'
+            else:
+            # 一般只能做人或者小鼠
+            # if species not in ['mouse','human']:
+                jinggao('特殊物种请注意！！！！！！！！！')
+                jinggao('请 blast 或 手动制作数据库，并修改config 的物种参数！！！')
+            if version == 'V2':
                 # 处理 cmd 命令
                 cmd = '### cellchat V2 ###\n'
                 cmd += 'set -e\n'
@@ -51,7 +60,7 @@ class Cellchat(BaseClass):
                     cmd += self.add_cmd_row(f'--rds {rds}')
                 cmd += self.add_cmd_row(f'--output {output}', end=True)
                 
-            elif version == 'cellchat V1':
+            elif version == 'V1':
                 # 处理 cmd 命令
                 cmd = '### cellchat V1 ###\n'
                 cmd += 'set -e\n'

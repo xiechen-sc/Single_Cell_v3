@@ -507,7 +507,7 @@ run: {analysis_type} # 这个不要改！
 
 #cellchat
 def get_cellchat(config_out):
-    version = 'cellchat V2'
+    version = 'V2'
     input  = 'seurat.h5seurat'
     species = 'mouse'
     output  = "cellchat"
