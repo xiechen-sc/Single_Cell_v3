@@ -9,3 +9,4 @@ from .scenic import Scenic
 from. decontX import DecontX
 from .monocle2 import Monocle2
 from .addmodulescore import Addmodulescore
+from .cellchat import Cellchat
