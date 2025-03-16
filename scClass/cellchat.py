@@ -99,3 +99,22 @@ class Cellchat(BaseClass):
             with open(out_script, "w") as f:
                 f.write(cmd)
             print(f"脚本{out_script}已生成")
+            
+            #  数据库将 cellchat 结果填充
+            import os
+            db_update_bg = self.pjif  # 可能有 scenic 也可能没有
+            if 'cellchat' not in db_update_bg:
+                db_update_bg['cellchat'] = dict()
+
+            cellchat_ret = output + '/cellchat_list.rds'
+            cellchat_ret = os.path.abspath(cellchat_ret)
+            absipt = os.path.abspath(input)
+            from datetime import datetime
+            now = datetime.now()
+            hour_time = now.strftime("%Y-%m-%d %H:00:00")  # 精确到小时，分钟和秒置为 00
+            db_update_bg['cellchat'][hour_time] = dict()
+            db_update_bg['cellchat'][hour_time]['input'] = absipt
+            db_update_bg['cellchat'][hour_time]['result_rds'] = cellchat_ret
+            db_update_bg['cellchat'][hour_time]['species'] = species
+        
+            self.update_info_bag = db_update_bg
