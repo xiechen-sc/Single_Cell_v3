@@ -47,7 +47,7 @@ class Addmodulescore(BaseClass):
     sc_addmodulescore  \\
         -x {genelist} \\
         -g {groupby} \\
-            """
+"""
                 if not (splitby == 'None'):
                     cmd += f'    	--splitby {splitby} \\\n'
                 if not (fsplitby == 'None'):

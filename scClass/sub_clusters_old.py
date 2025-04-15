@@ -1,7 +1,7 @@
 from .base_class import BaseClass
 from single_cell_auto.util import *
 from single_cell_auto.cmd_module import *
-class Sub_Clusters(BaseClass):
+class Sub_Clusters_old(BaseClass):
     analysis_module = 'sub_clusters'
 
     def whitelist(self,cell_name,species,tissue,seurat_sub,reduct2,cell_name_out):  # 白名单相关 

@@ -4,6 +4,7 @@ from single_cell_auto.cmd_module import *
 class Scenic(BaseClass):
     analysis_module = 'scenic'
 
+
     def get_step1_cmd(self,input_rds,db,scenic_species,coexMethod,output):
         cmd = '### scenic step 1 ###\n'
         cmd += self.add_cmd_row(f'Rscript /home/luyao/10X_scRNAseq_v3/src/GRN/scenic.R')

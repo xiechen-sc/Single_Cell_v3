@@ -130,3 +130,11 @@ wutou:
 #山葡萄
 shanputao:
   anno: /gpfs/oe-scrna/lishuai/genome_prepare/shanputao/Vitis_amurensis/
+
+#绵羊
+sheep_v4:
+  anno: /gpfs/oe-scrna/genome_reference/Mobi/refdata-Oar_v4.0/refdata-Oar_v4.0
+
+# 鸡
+Gallus_gallus:
+  anno: /gpfs/oe-database/cellranger-refdata/refdata-Gallus_gallus/ensembl_release-106

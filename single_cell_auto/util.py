@@ -31,14 +31,16 @@ def show_guide():
         {yellow}
         0.decontX 污染率检测
         1.修改细胞类型
-        2.亚群分析
+        2.亚群分析 (旧版 sctool)
+        2.5.亚群分析 (新版 sctool)
         3.差异分析
-        4.marker基因绘图
+        4.marker 基因绘图
         5.singleR 注释细胞类型
         6.enrichment 富集分析
         7.scenic Regulon 调控子分析
-        8.monocle2拟时序分析
+        8.monocle2 拟时序分析
         9.addmodulescore (新版 sctool)
+        10.cellchat 细胞通讯分析
         {reset}
         """
             )
