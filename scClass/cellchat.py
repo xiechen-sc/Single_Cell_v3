@@ -47,8 +47,13 @@ class Cellchat(BaseClass):
 
                 #  是否取子集，加上subsetby 和 which_cells
                 if subsetby != "None":
-                    cmd += self.add_cmd_row(f'--subsetby {subsetby}')
-                    cmd += self.add_cmd_row(f'--which_cells {which_cells}')
+                    str_list = [str(k) for k in which_cells.split(",")]
+                    cell_name = "_".join(str_list)
+                    cell_type = ",".join(["\\'" + k + "\\'" for k in str_list])
+                    cell_name_raw = str_list
+                    cmd += self.add_cmd_row(f'--predicate  "{subsetby} %in% c({cell_type})"')
+                    # cmd += self.add_cmd_row(f'--subsetby {subsetby}')
+                    # cmd += self.add_cmd_row(f'--which_cells {which_cells}')
 
                 # 分组比较时，加上 groupby 和 contrast
                 if groupby != "None":
@@ -76,8 +81,13 @@ class Cellchat(BaseClass):
 
                 #  是否取子集，加上subsetby 和 which_cells
                 if subsetby != "None":
-                    cmd += self.add_cmd_row(f'-q {subsetby}')
-                    cmd += self.add_cmd_row(f'-u {which_cells}')
+                    str_list = [str(k) for k in which_cells.split(",")]
+                    cell_name = "_".join(str_list)
+                    cell_type = ",".join(["\\'" + k + "\\'" for k in str_list])
+                    cell_name_raw = str_list
+                    cmd += self.add_cmd_row(f'--predicate  "{subsetby} %in% c({cell_type})"')
+                    # cmd += self.add_cmd_row(f'-q {subsetby}')
+                    # cmd += self.add_cmd_row(f'-u {which_cells}')
 
                 # 分组比较时，加上 groupby 和 contrast
                 if groupby != "None":
@@ -98,7 +108,7 @@ class Cellchat(BaseClass):
             out_script = f'{self.outdir}/cmd_{self.run}.sh'
             with open(out_script, "w") as f:
                 f.write(cmd)
-            print(f"脚本{out_script}已生成")
+            print(f"脚本 {out_script} 已生成")
             
             #  数据库将 cellchat 结果填充
             import os
