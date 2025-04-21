@@ -15,7 +15,7 @@ class Monocle2(BaseClass):
         if sub_seurat: 
             str_list = [str(k) for k in sub_lst.split(",")]
             cell_name = "_".join(str_list)
-            cell_type = ",".join(["\\'" + k + "\\'" for k in str_list])
+            cell_type = ",".join(["'" + k + "'" for k in str_list])
             cell_name_raw = str_list
             cmd += self.add_cmd_row(f'--predicate  "{sub_col} %in% c({cell_type})"')
             # cmd += self.add_cmd_row(f'-c {sub_col}')
