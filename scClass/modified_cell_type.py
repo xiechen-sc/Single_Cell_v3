@@ -12,6 +12,7 @@ class Modified_cell_type(BaseClass):
         type_name = self.type_name
         newseurat = self.newseurat
         species = self.species 
+        custom_ref = self.custom_ref
         if updata:
             bl = 'TRUE'
         else:
@@ -22,16 +23,20 @@ class Modified_cell_type(BaseClass):
         newcelltype_file_type = newcelltype_file.split('.')
         newcelltype_file_type = newcelltype_file_type[len(newcelltype_file_type)-1]
         species_info = get_species_info(species=species)
-        try:
-            anno = species_info['anno']
-        except KeyError:
-            anno = '# 请手动填写！！！'
-            jinggao(f'{species} 的 anno 在数据库中不存在 请手动填写！')
-        except TypeError:
-            anno = '# 请手动填写！！！'
-            jinggao(f'{species} 在数据库中不存在 请手动填写！')
+        if custom_ref != "None":
+            anno_dir = custom_ref
+            anno = anno_dir + '/annotation/gene_annotation.xls'
         else:
-            anno = anno + 'annotation/gene_annotation.xls'
+            try:
+                anno = species_info['anno']
+            except KeyError:
+                anno = '# 请手动填写！！！'
+                jinggao(f'{species} 的 anno 在数据库中不存在 请手动填写！')
+            except TypeError:
+                anno = '# 请手动填写！！！'
+                jinggao(f'{species} 在数据库中不存在 请手动填写！')
+            else:
+                anno = anno + 'annotation/gene_annotation.xls'
         if newcelltype_file_type == 'tsv':
             fgf = 'F'
         elif newcelltype_file_type == 'csv':
@@ -158,4 +163,5 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool annotation \\
         print(f"脚本 {out_script} 已生成")
         db_update_bg = self.pjif  
         db_update_bg['species'] = species
+        db_update_bg['custom_ref'] = custom_ref
         self.update_info_bag = db_update_bg

@@ -29,7 +29,7 @@ class Sub_Clusters(BaseClass):
         
         if custom_ref != "None":
             anno_dir = custom_ref
-            anno = anno_dir + 'annotation/gene_annotation.xls'
+            anno = anno_dir + '/annotation/gene_annotation.xls'
         else:
             try:
                 anno = species_info['anno'] 

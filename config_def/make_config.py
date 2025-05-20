@@ -192,13 +192,14 @@ def get_modified_cell_type(config_out):
     newseurat = 'newcelltype/seurat.h5seurat'
     type_name = 'new_celltype'
     species = 'mouse'
+    custom_ref = "None"
     # 根据数据库进行修改
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
         species = project_info['species'] # 更新物种信息
+    if 'custom_ref' in project_info:
+        custom_ref = project_info['custom_ref']
         
-
-
 
     config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type) 
     with open(config_out_file,'w')as f:
@@ -213,6 +214,7 @@ updata_bynewcelltype: {updata_bynewcelltype}  # 是否更新后续基于 newcell
 newseurat: {newseurat}  # 更新细胞类型后 新细胞类型的列
 type_name: {type_name}  # 
 species: {species}  # 物种 
+custom_ref: {custom_ref}  # 自行指定参考基因组
 run: {analysis_type}  # 这个不要改
 """)
     print(f'config.yaml 文件已生成至 {config_out_file}')
@@ -328,7 +330,7 @@ def get_scenic(config_out):
     step1_outdir = './'
     step2_run = 'False'
     step2_input = 'rds/data_ob_v3.rds'
-    result_dir = 'scenic_step1/int/3.4_regulonAUC.Rds'
+    result_dir = 'int/3.4_regulonAUC.Rds'
     rss_rank_top_gene = '3'
     groupby = 'new_celltype'
     sub_seurat = 'False'
