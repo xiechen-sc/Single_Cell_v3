@@ -229,15 +229,20 @@ def get_diff_enrich(config_out):
     treat = '["After","a"]'
     control = '["Before" ,"b"]'
     fc = 1.5
+    sig = 'qval'
     p = 0.05
     vs_type = 'group'
     top = 20
     analysis_type = 'diff'
     volcano_plot = 'False'
+    symbol_topn = "none"
+    custom_ref = "None"
     # 根据数据库进行修改
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
         species = project_info['species'] # 更新物种信息
+    if 'custom_ref' in project_info:
+        custom_ref = project_info['custom_ref']
 
     config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type) 
 
@@ -250,11 +255,14 @@ sub_type: {sub_type}  #  对于上方参数 从metadata中哪一列选择上方�
 treat: {treat}  # 实验组 组名
 control: {control} # 对照组组名  上下一一对应
 fc: {fc}  # 差异大小 foldchange
-p: {p}  # pvalue 显著性
+sig: {sig}  # 显著性筛选 qval or pval 默认为qval
+p: {p}  # 显著性筛选阈值
 vs_type: {vs_type}  # 对应上方的 treat control 决定了基于metadata中哪一列选择实验组与对照组
 species: {species} # 填写物种
 volcano_plot: {volcano_plot}  # 是否绘制火山图 默认不出图
 top: {top}  # top 绘制热图基因数
+symbol_topn: {symbol_topn}  # 指定火山图标记基因数 不标记基因可填0
+custom_ref: {custom_ref}  # 自行指定参考基因组
 run: {analysis_type}   # 这个不要改
 
 """)

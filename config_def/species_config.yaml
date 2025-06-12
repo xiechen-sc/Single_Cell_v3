@@ -80,6 +80,14 @@ rat:
   Hallmakr: "unknown"
   singleR:
     default: /data/database/celltype_refdata/Mouse/logNorm_rds/immgen.rds
+# 大鼠 新版
+rat_new:
+  anno: "/data/database/cellranger-refdata/refdata-mRatBN7_new/"
+  KEGG: "/data/database/GSEA_gmt/rat/gene_kegg.gmt"
+  GO_BP: /data/database/GSEA_gmt/rat/gene_go_bp.backgroud.gmt
+  Hallmakr: "unknown"
+  singleR:
+    default: /data/database/celltype_refdata/Mouse/logNorm_rds/immgen.rds
 # 大鼠 v6
 rat_v6:
   anno: "/data/database/cellranger-refdata/refdata-cellranger-Rnor_6.0/"

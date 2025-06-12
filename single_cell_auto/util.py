@@ -61,7 +61,7 @@ def show_help(analysis_module=None):
     
 # 获取 物种 配置信息
 def get_species_info(species=None):
-    species_info_file = '/gpfs/oe-scrna/zhengfuxing/Single_Cell_v3/config_def/species_config.yaml'
+    species_info_file = '/gpfs/oe-scrna/shimiao/Single_Cell_v3/config_def/species_config.yaml'
     species_dict = read_yaml_file(species_info_file)
     try:
         species_info = species_dict[species]

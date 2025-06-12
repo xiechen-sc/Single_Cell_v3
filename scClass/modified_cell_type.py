@@ -83,16 +83,6 @@ summarize \\
 --pointsize 0.5 \\
 --dosummary T
 
-Rscript /public/scRNA_works/pipeline/oesinglecell3/exec/scVis \\
--i {seurat} \\
--f h5seurat \\
--o ./clusters_correlation \\
--t 6 \\
---assay RNA \\
---slot data \\
---reduct umap \\
-coefficient \\
--g {type_name}
 
 # 1.鉴定marker
 Rscript /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
