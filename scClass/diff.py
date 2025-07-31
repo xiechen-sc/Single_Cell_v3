@@ -81,7 +81,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
 -k {fc}     \\
 """
                     if sig == 'pval':
-                        cmd = cmd = f"-p {p} \\"
+                        cmd = cmd + f"-p {p} \\"
                     elif sig == 'qval':
                         cmd = cmd + f"-q {p} \\"
                     

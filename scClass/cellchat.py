@@ -44,15 +44,15 @@ class Cellchat(BaseClass):
                     cmd = '### cellchat V2 ###\n'
                     cmd += 'set -e\n'
                     cmd += f'module purge && module load OESingleCell/v_3.0.0_visium_produce\n'
-                    if i == num_contrasts:
+                    if i == 1:
                         cmd += add_cmd
                     cmd += f"""
 ########## 检测 data_ob_v3.rds 文件是否存在 ##########
 while [ ! -f {input} ]; do
     echo "Waiting for data_ob_v3.rds to be generated..."
-    sleep 60  # 每隔10秒检查一次
+    sleep 60  # 每隔60秒检查一次
 done
-echo "data_ob_v3.rds detected!"  \n                 
+echo "{input} detected!"  \n                 
 """
                     cmd += self.add_cmd_row(f'sctool cellchat2')
                     cmd += self.add_cmd_row(f'--input {input}')
@@ -66,11 +66,11 @@ echo "data_ob_v3.rds detected!"  \n
                     if subsetby != "None":
                         str_list = [str(k) for k in which_cells.split(",")]
                         cell_name = "_".join(str_list)
-                        cell_type = ",".join(["\\'" + k + "\\'" for k in str_list])
+                        # cell_type = ",".join(["\\'" + k + "\\'" for k in str_list])
                         cell_name_raw = str_list
-                        cmd += self.add_cmd_row(f'--predicate  "{subsetby} %in% c({cell_type})"')
-                        # cmd += self.add_cmd_row(f'--subsetby {subsetby}')
-                        # cmd += self.add_cmd_row(f'--which_cells {which_cells}')
+                        # cmd += self.add_cmd_row(f'--predicate  "{subsetby} %in% c({cell_type})"')
+                        cmd += self.add_cmd_row(f'--subsetby {subsetby}')
+                        cmd += self.add_cmd_row(f'--which_cells {which_cells}')
 
                     # 分组比较时，加上 groupby 和 contrast
                     if strict != "F":

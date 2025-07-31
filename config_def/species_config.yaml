@@ -146,3 +146,7 @@ sheep_v4:
 # 鸡
 Gallus_gallus:
   anno: /gpfs/oe-database/cellranger-refdata/refdata-Gallus_gallus/ensembl_release-106
+
+#goat 山羊
+goat:
+  anno: /gpfs/oe-database/cellranger-refdata/refdata-cellranger-Capra_hircus/NCBI/

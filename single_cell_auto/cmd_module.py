@@ -30,7 +30,7 @@ def volcano(input,sig,pvalue,log2fc,output,symbol_topn):
         psub = f"-q {pvalue}"
     elif sig == 'pval':
         psub = f"-p {pvalue}"
-    if symbol_topn:
+    if symbol_topn == "none":
         cmd = f"""
 set -e
 module purge && module load OESingleCell/3.0.d

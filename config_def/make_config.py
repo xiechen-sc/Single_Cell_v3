@@ -210,7 +210,7 @@ output: {output}  # 结果输出目录
 Modified_file: {Modified_file}  # 用来修改细胞类型的文件
 Modified_col: {Modified_col}  #  用来修改的列
 reduct: {reduct}  # 降维方法
-updata_bynewcelltype: {updata_bynewcelltype}  # 是否更新后续基于 newcelltype的分析 包含 cor vis marker 分析
+updata_bynewcelltype: {updata_bynewcelltype}  # 是否更新后续基于 newcelltype的分析 包含marker 分析,选false只跑sumarize
 newseurat: {newseurat}  # 更新细胞类型后 新细胞类型的列
 type_name: {type_name}  # 
 species: {species}  # 物种 
@@ -527,7 +527,7 @@ def get_cellchat(config_out):
     subsetby = 'None'
     which_cells = 'None'
     topn = '5'
-    palette = 'col50'
+    palette = 'customecol2'
     rds = 'None'
     strict = 'F'
     cellchatdb = 'None'

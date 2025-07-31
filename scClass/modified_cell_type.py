@@ -66,9 +66,8 @@ changecelltype \\
 -b {fgf}
                 """)
 
-            if updata_bynewcelltype:
-                seurat=newseurat
-                f.write(f"""
+            seurat=newseurat
+            f.write(f"""
 Rscript /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
 -i  {seurat} \\
 -f h5seurat \\
@@ -76,14 +75,17 @@ Rscript /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
 --assay RNA \\
 --dataslot data \\
 summarize \\
---reduct umap \\
+--reduct {reduct} \\
 --palette customecol2 \\
 -c {type_name} \\
 -b sampleid,group \\
 --pointsize 0.5 \\
 --dosummary T
+                """)
 
 
+            if updata_bynewcelltype:
+                f.write(f"""
 # 1.鉴定marker
 Rscript /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
 -i {seurat} \\
@@ -130,7 +132,7 @@ Rscript /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
 visualize \
 -l Marker/top10_markers_for_each_cluster.xls \
 -g {type_name} \\
---reduct umap \\
+--reduct {reduct} \\
 --topn  10  \\
 --topby gene_diff \\
 -m vlnplot,featureplot \\
