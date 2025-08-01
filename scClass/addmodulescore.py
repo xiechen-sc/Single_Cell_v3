@@ -54,8 +54,8 @@ class Addmodulescore(BaseClass):
                     cmd += f'    	--fsplitby {fsplitby} \\\n'
                 if show_box:
                     cmd += f'    	--show_box {show_box} \\\n'
-                if not (strict == 'None'):
-                    cmd += f'    	--strict {strict} \\\n'
+                # if not (strict == 'None'):
+                #     cmd += f'    	--strict {strict} \\\n'
                 if not (pvalue == 'None'):
                     cmd += f'    	--pvalue {pvalue} \\\n'
                 cmd += f'        --pointsize {pointsize} '
@@ -100,8 +100,8 @@ class Addmodulescore(BaseClass):
                         cmd += f'    	--fsplitby {fsplitby} \\\n'
                     if show_box:
                         cmd += f'    	--show_box {show_box} \\\n'
-                    if not (strict == 'None'):
-                        cmd += f'    	--strict {strict} \\\n'
+                    # if not (strict == 'None'):
+                    #     cmd += f'    	--strict {strict} \\\n'
                     if not (pvalue == 'None'):
                         cmd += f'    	--pvalue {pvalue} \\\n'
                     cmd += f'        --pointsize {pointsize} '

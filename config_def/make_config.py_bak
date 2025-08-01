@@ -192,14 +192,13 @@ def get_modified_cell_type(config_out):
     newseurat = 'newcelltype/seurat.h5seurat'
     type_name = 'new_celltype'
     species = 'mouse'
-    custom_ref = "None"
     # 根据数据库进行修改
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
         species = project_info['species'] # 更新物种信息
-    if 'custom_ref' in project_info:
-        custom_ref = project_info['custom_ref']
         
+
+
 
     config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type) 
     with open(config_out_file,'w')as f:
@@ -210,11 +209,10 @@ output: {output}  # 结果输出目录
 Modified_file: {Modified_file}  # 用来修改细胞类型的文件
 Modified_col: {Modified_col}  #  用来修改的列
 reduct: {reduct}  # 降维方法
-updata_bynewcelltype: {updata_bynewcelltype}  # 是否更新后续基于 newcelltype的分析 包含marker 分析,选false只跑sumarize
+updata_bynewcelltype: {updata_bynewcelltype}  # 是否更新后续基于 newcelltype的分析 包含 cor vis marker 分析
 newseurat: {newseurat}  # 更新细胞类型后 新细胞类型的列
 type_name: {type_name}  # 
 species: {species}  # 物种 
-custom_ref: {custom_ref}  # 自行指定参考基因组
 run: {analysis_type}  # 这个不要改
 """)
     print(f'config.yaml 文件已生成至 {config_out_file}')
@@ -229,20 +227,15 @@ def get_diff_enrich(config_out):
     treat = '["After","a"]'
     control = '["Before" ,"b"]'
     fc = 1.5
-    sig = 'qval'
     p = 0.05
     vs_type = 'group'
     top = 20
     analysis_type = 'diff'
     volcano_plot = 'False'
-    symbol_topn = "none"
-    custom_ref = "None"
     # 根据数据库进行修改
     project_info = database_retrieval(config_path=config_out)
     if 'species' in project_info :
         species = project_info['species'] # 更新物种信息
-    if 'custom_ref' in project_info:
-        custom_ref = project_info['custom_ref']
 
     config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type) 
 
@@ -255,14 +248,11 @@ sub_type: {sub_type}  #  对于上方参数 从metadata中哪一列选择上方�
 treat: {treat}  # 实验组 组名
 control: {control} # 对照组组名  上下一一对应
 fc: {fc}  # 差异大小 foldchange
-sig: {sig}  # 显著性筛选 qval or pval 默认为qval
-p: {p}  # 显著性筛选阈值
+p: {p}  # pvalue 显著性
 vs_type: {vs_type}  # 对应上方的 treat control 决定了基于metadata中哪一列选择实验组与对照组
 species: {species} # 填写物种
 volcano_plot: {volcano_plot}  # 是否绘制火山图 默认不出图
 top: {top}  # top 绘制热图基因数
-symbol_topn: {symbol_topn}  # 指定火山图标记基因数 不标记基因可填0
-custom_ref: {custom_ref}  # 自行指定参考基因组
 run: {analysis_type}   # 这个不要改
 
 """)
@@ -338,7 +328,7 @@ def get_scenic(config_out):
     step1_outdir = './'
     step2_run = 'False'
     step2_input = 'rds/data_ob_v3.rds'
-    result_dir = 'int/3.4_regulonAUC.Rds'
+    result_dir = 'scenic_step1/int/3.4_regulonAUC.Rds'
     rss_rank_top_gene = '3'
     groupby = 'new_celltype'
     sub_seurat = 'False'
@@ -514,45 +504,3 @@ assay: {assay}
 pointsize: {pointsize}  # 点的大小 
 run: {analysis_type} # 这个不要改！
 """)   
-
-#cellchat
-def get_cellchat(config_out):
-    version = 'V2'
-    input  = 'seurat.h5seurat'
-    species = 'mouse'
-    output  = "cellchat"
-    column4cell = 'clusters'
-    groupby = 'None'
-    contrast = 'None'
-    subsetby = 'None'
-    which_cells = 'None'
-    topn = '5'
-    palette = 'customecol2'
-    rds = 'None'
-    strict = 'F'
-    cellchatdb = 'None'
-    analysis_type = 'cellchat'
-    # 数据库交互
-    project_info = database_retrieval(config_path=config_out)
-    if 'species' in project_info :
-        species = project_info['species'] # 更新物种信息 
-
-    config_out_file = mkdir(config_out=config_out,analysis_type=analysis_type)
-    with open(config_out_file,'w')as f:
-        f.write(f"""
-version: {version}  # cellchat 版本 默认V2,可选V1
-input: {input}  # 输入 seurat 对象文件(rds文件或h5文件)
-species: {species}
-output: {output}  # 输出目录
-column4cell: {column4cell}  # 用于进行通讯分析的metadata列名
-groupby: {groupby}  # 用于比较的分组列名,默认None不分组,如需分组可填group、sampleid等。
-contrast: {contrast}  # 默认None不分组,分组则填写case:control;多组用加号连接,如Case1:Control+Case2:Case1
-subsetby: {subsetby}  # 需要截取的列名,默认None不截取, (可截取seurat对象,或者cellchat结果对象)
-which_cells: {which_cells}  # 需要截取的具体变量(可截取seurat对象,或者cellchat结果对象),如Epicardial_1,Epicardial_2,Epicardial_3
-rds: {rds}  # 读取结果rds,重新生成结果,请传入cellchat_list.rds文件
-topn: {topn}  # 绘制气泡图筛选的top受配体对数,默认为top5,如果指定了-x默认无筛选,如需筛选可以进行指定。 例：--topn 5
-strict: {strict}  # 是否为严格模式，严格模式下，输入的-x参数中文件source,target两列展示严格一对一的受配体对,否则对这两列组合排列生成相互交叉受配体对
-palette: {palette}  # 配色
-cellchatdb: {cellchatdb}  # cellchat 数据库,默认None
-run: {analysis_type} # 这个不要改！
-""")

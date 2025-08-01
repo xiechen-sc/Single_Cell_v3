@@ -12,26 +12,32 @@ class Diff(BaseClass):
             treat_all = self.treat
             control_all = self.control
             fc = self.fc
+            sig = self.sig
             p = self.p
             vs_type = self.vs_type
             species = self.species
             volcano_plot = self.volcano_plot
 
             top = self.top
+            symbol_topn = self.symbol_topn
+            custom_ref = self.custom_ref
             outdir = self.outdir
 
             len_t = len(treat_all); len_c = len(control_all)
             species_info = get_species_info(species=species)
             if len_t != len_c:
                 exit('请检查 yaml 文件 实验组与对照组数量不一致')
-            try:
-                anno = species_info['anno']
-            except KeyError:
-                anno = '# 请手动填写！！！'
-                jinggao(f'{species} 的 anno 在数据库中不存在 请手动填写！')
-            except TypeError:
-                anno = '# 请手动填写！！！'
-                jinggao(f'{species} 在数据库中不存在 请手动填写！')
+            if custom_ref != "None":
+                anno = custom_ref
+            else:
+                try:
+                    anno = species_info['anno']
+                except KeyError:
+                    anno = '# 请手动填写！！！'
+                    jinggao(f'{species} 的 anno 在数据库中不存在 请手动填写！')
+                except TypeError:
+                    anno = '# 请手动填写！！！'
+                    jinggao(f'{species} 在数据库中不存在 请手动填写！')
             
             
             for num in range(0,len_t):
@@ -73,7 +79,13 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  \\
                     cmd = cmd + f"""diffexp     \\
 -c {vs_type}:{treat}:{control}     \\
 -k {fc}     \\
--p {p}    \\
+"""
+                    if sig == 'pval':
+                        cmd = cmd + f"-p {p} \\"
+                    elif sig == 'qval':
+                        cmd = cmd + f"-q {p} \\"
+                    
+                    cmd = cmd + f"""
 -e presto
 
 Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  annotation \\
@@ -81,7 +93,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  annotation \\
 --anno {anno}/annotation/gene_annotation.xls
 
 Rscript   /public/scRNA_works/pipeline/oesinglecell3/exec/sctool  annotation \\
--g ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-diff-pval-{p}-FC-{fc}.xls \\
+-g ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-diff-{sig}-{p}-FC-{fc}.xls \\
 --anno {anno}/annotation/gene_annotation.xls
 
 ### diffexp_heatmap
@@ -98,13 +110,13 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/scVis \\
                     else:
                         cmd += f"""--predicate "{vs_type} %in% c(\\'{treat}\\',\\'{control}\\')" \\\n"""
                     cmd += f"""diff_heatmap \\
--d ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-diff-pval-{p}-FC-{fc}.xls \\
+-d ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-diff-{sig}-{p}-FC-{fc}.xls \\
 -n {top} \\
 -g {vs_type} \\
 --group_colors customecol2 \\
 --sample_ratio 0.8
 
-rm ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-all_diffexp_genes.xls ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-diff-pval-{p}-FC-{fc}.xls
+rm ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-all_diffexp_genes.xls ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-diff-{sig}-{p}-FC-{fc}.xls
 
 
 
@@ -117,9 +129,11 @@ rm ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}
                     
                     cmd_vol = volcano(
                         input=f'./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}-all_diffexp_genes_anno.xls',
+                        sig=sig,
                         pvalue=p,
                         log2fc=fc,
-                        output=f'./{cell_type_out}-Diffexp/{treat}-vs-{control}/'
+                        output=f'./{cell_type_out}-Diffexp/{treat}-vs-{control}/',
+                        symbol_topn=symbol_topn
                                 )
                     if volcano_plot:
                         cmd += cmd_vol
@@ -136,6 +150,7 @@ rm ./{cell_type_out}-Diffexp/{treat}-vs-{control}/{vs_type}_{treat}-vs-{control}
             #### 物种信息保存至数据库
             db_update_bg = self.pjif  
             db_update_bg['species'] = species
+            db_update_bg['custom_ref'] = custom_ref
             self.update_info_bag = db_update_bg
                     
 

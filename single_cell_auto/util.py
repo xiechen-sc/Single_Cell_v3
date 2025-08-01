@@ -34,12 +34,13 @@ def show_guide():
         2.亚群分析 (旧版 sctool)
         2.5.亚群分析 (新版 sctool)
         3.差异分析
-        4.marker基因绘图
+        4.marker 基因绘图
         5.singleR 注释细胞类型
         6.enrichment 富集分析
         7.scenic Regulon 调控子分析
-        8.monocle2拟时序分析
+        8.monocle2 拟时序分析
         9.addmodulescore (新版 sctool)
+        10.cellchat 细胞通讯分析
         {reset}
         """
             )
@@ -60,7 +61,7 @@ def show_help(analysis_module=None):
     
 # 获取 物种 配置信息
 def get_species_info(species=None):
-    species_info_file = '/gpfs/oe-scrna/zhengfuxing/Single_Cell_v3/config_def/species_config.yaml'
+    species_info_file = '/gpfs/oe-scrna/shimiao/Single_Cell_v3/config_def/species_config.yaml'
     species_dict = read_yaml_file(species_info_file)
     try:
         species_info = species_dict[species]

@@ -81,7 +81,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
   --vcolors customecol2 \\
   --ccolors spectral \\
   --pointsize 0 \\
-  --dodge F                    
+  --dodge F  --dotsplit TRUE                  
 """
                     
             return cmd1
@@ -105,7 +105,7 @@ Rscript  /public/scRNA_works/pipeline/oesinglecell3/exec/sctool \\
   --vcolors customecol2 \\
   --ccolors spectral \\
   --pointsize 0 \\
-  --dodge F                    
+  --dodge F  --dotsplit TRUE                    
 """
             return cmd1
         

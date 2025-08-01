@@ -35,5 +35,8 @@ def get_script_fun(module_analysis,config_path,yaml_data,project_id):
 
         elif module_analysis == 'addmodulescore':
             sc_obj = Addmodulescore(project_id=project_id,config_path=config_path,**yaml_data)
+
+        elif module_analysis == 'cellchat':
+            sc_obj =  Cellchat(project_id=project_id,config_path=config_path,**yaml_data)
             
         sc_obj.get_script()

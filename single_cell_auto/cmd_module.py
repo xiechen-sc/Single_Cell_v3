@@ -25,16 +25,32 @@ celltyping \\
     return cmd
 
 
-def volcano(input,pvalue,log2fc,output):
-    cmd = f"""
+def volcano(input,sig,pvalue,log2fc,output,symbol_topn):
+    if sig == 'qval':
+        psub = f"-q {pvalue}"
+    elif sig == 'pval':
+        psub = f"-p {pvalue}"
+    if symbol_topn == "none":
+        cmd = f"""
 set -e
 module purge && module load OESingleCell/3.0.d
 Rscript /gpfs/oe-scrna/pipeline/scRNA-seq_further_analysis/volcanoplot/volcano.r \\
 -i {input} \\
--p {pvalue} \\
+{psub} \\
 -f {log2fc} \\
--o {output}
+-o {output} 
 """
+    else:
+        cmd = f"""
+set -e
+module purge && module load OESingleCell/3.0.d
+Rscript /gpfs/oe-scrna/pipeline/scRNA-seq_further_analysis/volcanoplot/volcano.r \\
+-i {input} \\
+{psub} \\
+-f {log2fc} \\
+-o {output} \\
+--symbol_topn {symbol_topn}
+        """
     return cmd
 
 

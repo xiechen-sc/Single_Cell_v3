@@ -13,8 +13,13 @@ class Monocle2(BaseClass):
         cmd += self.add_cmd_row(f'-d {col_name}')
         cmd += self.add_cmd_row(f'-C {step1_groupby}')
         if sub_seurat: 
-            cmd += self.add_cmd_row(f'-c {sub_col}')
-            cmd += self.add_cmd_row(f'-u {sub_lst}')
+            str_list = [str(k) for k in sub_lst.split(",")]
+            cell_name = "_".join(str_list)
+            cell_type = ",".join(["'" + k + "'" for k in str_list])
+            cell_name_raw = str_list
+            cmd += self.add_cmd_row(f'--predicate  "{sub_col} %in% c({cell_type})"')
+            # cmd += self.add_cmd_row(f'-c {sub_col}')
+            # cmd += self.add_cmd_row(f'-u {sub_lst}')
         cmd += self.add_cmd_row(f'-j {cores_use} -x 0.01 -r {resolution} -s 1')
         if result_rds:
             cmd += self.add_cmd_row(f'--rds {result_rds}')
